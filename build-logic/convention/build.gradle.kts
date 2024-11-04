@@ -60,6 +60,11 @@ gradlePlugin {
             implementationClass = "AndroidApplicationFlavorsConventionPlugin"
         }
 
+        register("androidHilt") {
+            id = "store.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
+
         // endregion Android plugins
 
     }

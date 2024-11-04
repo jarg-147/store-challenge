@@ -10,5 +10,6 @@ plugins {
     alias(libs.plugins.googleServices) apply false
     alias(libs.plugins.firebaseCrashlytics) apply false
     alias(libs.plugins.firebasePerformance) apply false
-    alias(libs.plugins.roomPlugin) apply false
+    alias(libs.plugins.room) apply false
+    alias(libs.plugins.hilt) apply false
 }

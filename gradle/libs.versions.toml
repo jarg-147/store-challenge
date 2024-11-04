@@ -154,6 +154,9 @@ firebasePerformance = { id = "com.google.firebase.firebase-perf", version.ref = 
 # Room
 room = { id = "androidx.room", version.ref = "room" }
 
+# Hilt
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
 # Store challenge plugins
 store-android-application = { id = "store.android.application", version = "unspecified" }
 store-android-application-compose = { id = "store.android.application.compose", version = "unspecified" }
