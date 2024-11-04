@@ -1,44 +1,21 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.kotlinComposeCompiler)
+    alias(libs.plugins.store.android.application)
+    alias(libs.plugins.store.android.application.compose)
+    alias(libs.plugins.store.android.application.flavors)
+
+    // Firebase gradle plugin requires a valid google-services.json file
+    // Added for production app demonstration purposes only
+    //alias(libs.plugins.store.android.application.firebase)
 }
 
 android {
     namespace = "com.jargcode.storechallenge"
-    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.jargcode.storechallenge"
-        minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    buildFeatures {
-        compose = true
     }
 
     packaging {
@@ -68,9 +45,6 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     debugImplementation(libs.compose.ui.tooling)
-
-    // Google
-    implementation(libs.google.gms.services)
 
     // Coil
     implementation(libs.coil.compose)
