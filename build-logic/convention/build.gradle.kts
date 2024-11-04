@@ -37,6 +37,30 @@ tasks {
 
 gradlePlugin {
     plugins {
-        // TODO
+
+        // region Android plugins
+
+        register("androidApplication") {
+            id = "store.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+
+        register("androidApplicationCompose") {
+            id = "store.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+
+        register("androidApplicationFirebase") {
+            id = "store.android.application.firebase"
+            implementationClass = "AndroidApplicationFirebaseConventionPlugin"
+        }
+
+        register("androidApplicationFlavors") {
+            id = "store.android.application.flavors"
+            implementationClass = "AndroidApplicationFlavorsConventionPlugin"
+        }
+
+        // endregion Android plugins
+
     }
 }

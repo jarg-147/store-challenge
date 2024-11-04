@@ -3,12 +3,12 @@
 # App package
 app-packageId = "com.jarg.shop.challenge"
 
-# Android app SDK
-compileSdk = "35"
-minSdk = "26"
-targetSdk = "35"
+# App Android SDK
+app-compileSdk = "35"
+app-minSdk = "26"
+app-targetSdk = "35"
 
-# Android app version
+# App version
 app-versionCode = "2024110400"
 app-versionName = "1.0.0"
 
@@ -152,4 +152,10 @@ firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "f
 firebasePerformance = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-perf-plugin" }
 
 # Room
-roomPlugin = { id = "androidx.room", version.ref = "room" }
+room = { id = "androidx.room", version.ref = "room" }
+
+# Store challenge plugins
+store-android-application = { id = "store.android.application", version = "unspecified" }
+store-android-application-compose = { id = "store.android.application.compose", version = "unspecified" }
+store-android-application-firebase = { id = "store.android.application.firebase", version = "unspecified" }
+store-android-application-flavors = { id = "store.android.application.flavors", version = "unspecified" }
