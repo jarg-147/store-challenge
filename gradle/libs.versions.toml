@@ -3,12 +3,12 @@
 # App package
 app-packageId = "com.jarg.shop.challenge"
 
-# Android app SDK
-compileSdk = "35"
-minSdk = "26"
-targetSdk = "35"
+# App Android SDK
+app-compileSdk = "35"
+app-minSdk = "26"
+app-targetSdk = "35"
 
-# Android app version
+# App version
 app-versionCode = "2024110400"
 app-versionName = "1.0.0"
 
@@ -152,4 +152,22 @@ firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "f
 firebasePerformance = { id = "com.google.firebase.firebase-perf", version.ref = "firebase-perf-plugin" }
 
 # Room
-roomPlugin = { id = "androidx.room", version.ref = "room" }
+room = { id = "androidx.room", version.ref = "room" }
+
+# Hilt
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
+# Store challenge plugins
+store-android-application = { id = "store.android.application", version = "unspecified" }
+store-android-application-compose = { id = "store.android.application.compose", version = "unspecified" }
+store-android-application-firebase = { id = "store.android.application.firebase", version = "unspecified" }
+store-android-application-flavors = { id = "store.android.application.flavors", version = "unspecified" }
+
+store-android-library = { id = "store.android.library", version = "unspecified" }
+store-android-library-compose = { id = "store.android.library.compose", version = "unspecified" }
+store-android-library-flavors = { id = "store.android.library.flavors", version = "unspecified" }
+
+store-android-hilt = { id = "store.android.hilt", version = "unspecified" }
+store-android-room = { id = "store.android.room", version = "unspecified" }
+
+store-jvm-library = { id = "store.jvm.library", version = "unspecified" }
