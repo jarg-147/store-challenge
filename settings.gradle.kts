@@ -18,4 +18,16 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
+
+// App
 include(":app")
+
+// Core
+include(":core:network")
+include(":core:database")
+include(":core:data")
+include(":core:domain")
+include(":core:common")
+include(":core:designsystem")
+include(":core:ui")
+include(":core:testing")
