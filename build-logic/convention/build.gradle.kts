@@ -72,5 +72,14 @@ gradlePlugin {
 
         // endregion Android plugins
 
+        // region JVM plugins
+
+        register("jvmLibrary") {
+            id = "store.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
+
+        // endregion JVM plugins
+
     }
 }

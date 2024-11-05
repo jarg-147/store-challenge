@@ -164,3 +164,5 @@ store-android-application-firebase = { id = "store.android.application.firebase"
 store-android-application-flavors = { id = "store.android.application.flavors", version = "unspecified" }
 store-android-hilt = { id = "store.android.hilt", version = "unspecified" }
 store-android-room = { id = "store.android.room", version = "unspecified" }
+
+store-jvm-library = { id = "store.jvm.library", version = "unspecified" }
