@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CommonModule {
+object DispatchersModule {
 
     @Provides
     fun provideDispatcherProvider(): DispatcherProvider = StandardDispatchers()
