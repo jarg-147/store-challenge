@@ -1,36 +1,22 @@
+import com.jargcode.storechallenge.convention.setAndroidNamespace
+
 plugins {
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.store.android.library)
+    alias(libs.plugins.store.hilt)
 }
 
 android {
-    namespace = "com.jargcode.storechallenge.core.testing"
-    compileSdk = 34
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+    setAndroidNamespace("core.testing")
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
+    // Modules
+    implementation(projects.core.domain)
+    implementation(projects.core.common)
+    // Dependencies
+    implementation(libs.hilt.android.testing)
+    api(libs.kotlinx.coroutines.test)
+    api(libs.junit5.api)
+    api(libs.junit5.engine)
+    api(libs.junit5.params)
 }
