@@ -60,9 +60,9 @@ gradlePlugin {
             implementationClass = "AndroidApplicationFlavorsConventionPlugin"
         }
 
-        register("androidHilt") {
-            id = "store.android.hilt"
-            implementationClass = "AndroidHiltConventionPlugin"
+        register("hilt") {
+            id = "store.hilt"
+            implementationClass = "HiltConventionPlugin"
         }
 
         register("androidRoom") {
