@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.store.android.application)
     alias(libs.plugins.store.android.application.compose)
     alias(libs.plugins.store.android.application.flavors)
+    alias(libs.plugins.store.android.hilt)
 
     // Firebase gradle plugin requires a valid google-services.json file
     // Added for production app demonstration purposes only

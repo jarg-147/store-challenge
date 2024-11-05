@@ -162,3 +162,4 @@ store-android-application = { id = "store.android.application", version = "unspe
 store-android-application-compose = { id = "store.android.application.compose", version = "unspecified" }
 store-android-application-firebase = { id = "store.android.application.firebase", version = "unspecified" }
 store-android-application-flavors = { id = "store.android.application.flavors", version = "unspecified" }
+store-android-hilt = { id = "store.android.hilt", version = "unspecified" }
