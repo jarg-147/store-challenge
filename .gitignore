@@ -31,7 +31,4 @@ google-services.json
 
 # Android Profiling
 *.hprof
-/app/compose-metrics/app_devDebug-classes.txt
-/app/compose-metrics/app_devDebug-composables.csv
-/app/compose-metrics/app_devDebug-composables.txt
-/app/compose-metrics/app_devDebug-module.json
+/*/compose-metrics/*
