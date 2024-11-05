@@ -1,5 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.jarg.transport.porto.convention.*
+import com.jargcode.storechallenge.convention.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

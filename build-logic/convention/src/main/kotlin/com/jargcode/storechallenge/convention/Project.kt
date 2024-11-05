@@ -1,4 +1,4 @@
-package com.jarg.transport.porto.convention
+package com.jargcode.storechallenge.convention
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog

@@ -1,7 +1,7 @@
-package com.jarg.transport.porto.convention
+package com.jargcode.storechallenge.convention
 
 import com.android.build.api.dsl.*
-import com.jarg.transport.porto.convention.FlavorDimension.env
+import com.jargcode.storechallenge.convention.FlavorDimension.env
 
 @Suppress("EnumEntryName")
 enum class FlavorDimension {

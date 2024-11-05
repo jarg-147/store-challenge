@@ -1,4 +1,4 @@
-import com.jarg.transport.porto.convention.configureKotlinJvm
+import com.jargcode.storechallenge.convention.configureKotlinJvm
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

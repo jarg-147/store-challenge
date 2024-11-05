@@ -1,6 +1,6 @@
 import com.android.build.gradle.LibraryExtension
-import com.jarg.transport.porto.convention.configureBuildTypes
-import com.jarg.transport.porto.convention.configureKotlinAndroid
+import com.jargcode.storechallenge.convention.configureBuildTypes
+import com.jargcode.storechallenge.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

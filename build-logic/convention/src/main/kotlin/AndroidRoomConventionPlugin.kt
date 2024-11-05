@@ -1,7 +1,7 @@
 import androidx.room.gradle.RoomExtension
 import com.google.devtools.ksp.gradle.KspExtension
-import com.jarg.transport.porto.convention.library
-import com.jarg.transport.porto.convention.libs
+import com.jargcode.storechallenge.convention.library
+import com.jargcode.storechallenge.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
