@@ -57,6 +57,7 @@ room = "2.6.1"
 coil = "2.7.0"
 
 # Testing
+junit5 = "5.10.1"
 turbine = "1.2.0"
 assertk = "0.28.1"
 
@@ -97,6 +98,7 @@ firebase-performance = { module = "com.google.firebase:firebase-perf" }
 
 # Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-core = { module = "com.google.dagger:hilt-core", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation" }
 hilt-android-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-android" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
@@ -114,8 +116,11 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 # Testing
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+junit5-params = { module = "org.junit.jupiter:params", version.ref = "junit5" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 
@@ -167,7 +172,7 @@ store-android-library = { id = "store.android.library", version = "unspecified" 
 store-android-library-compose = { id = "store.android.library.compose", version = "unspecified" }
 store-android-library-flavors = { id = "store.android.library.flavors", version = "unspecified" }
 
-store-android-hilt = { id = "store.android.hilt", version = "unspecified" }
+store-hilt = { id = "store.hilt", version = "unspecified" }
 store-android-room = { id = "store.android.room", version = "unspecified" }
 
 store-jvm-library = { id = "store.jvm.library", version = "unspecified" }
