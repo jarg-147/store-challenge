@@ -65,6 +65,11 @@ gradlePlugin {
             implementationClass = "AndroidHiltConventionPlugin"
         }
 
+        register("androidRoom") {
+            id = "store.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
+        }
+
         // endregion Android plugins
 
     }
