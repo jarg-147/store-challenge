@@ -70,6 +70,21 @@ gradlePlugin {
             implementationClass = "AndroidRoomConventionPlugin"
         }
 
+        register("androidLibrary") {
+            id = "store.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+
+        register("androidLibraryCompose") {
+            id = "store.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
+
+        register("androidLibraryFlavors") {
+            id = "store.android.library.flavors"
+            implementationClass = "AndroidLibraryFlavorsConventionPlugin"
+        }
+
         // endregion Android plugins
 
         // region JVM plugins
