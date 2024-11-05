@@ -97,6 +97,7 @@ firebase-performance = { module = "com.google.firebase:firebase-perf" }
 
 # Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-core = { module = "com.google.dagger:hilt-core", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation" }
 hilt-android-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-android" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
@@ -167,7 +168,7 @@ store-android-library = { id = "store.android.library", version = "unspecified" 
 store-android-library-compose = { id = "store.android.library.compose", version = "unspecified" }
 store-android-library-flavors = { id = "store.android.library.flavors", version = "unspecified" }
 
-store-android-hilt = { id = "store.android.hilt", version = "unspecified" }
+store-hilt = { id = "store.hilt", version = "unspecified" }
 store-android-room = { id = "store.android.room", version = "unspecified" }
 
 store-jvm-library = { id = "store.jvm.library", version = "unspecified" }
