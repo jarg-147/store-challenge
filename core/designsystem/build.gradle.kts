@@ -10,5 +10,11 @@ android {
 }
 
 dependencies {
-
+    // Modules
+    implementation(projects.core.domain)
+    // Dependencies
+    api(libs.compose.material3)
+    api(libs.compose.material.icons)
+    api(libs.compose.runtime)
+    api(libs.compose.ui)
 }
