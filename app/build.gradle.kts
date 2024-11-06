@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.store.android.application.compose)
     alias(libs.plugins.store.android.application.flavors)
     alias(libs.plugins.store.hilt)
+    alias(libs.plugins.kotlinSerialization)
 
     // Firebase gradle plugin requires a valid google-services.json file
     // Added for production app demonstration purposes only
@@ -27,6 +28,10 @@ android {
 }
 
 dependencies {
+    // Modules
+    implementation(projects.core.domain)
+    implementation(projects.core.designsystem)
+
     // Kotlin
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
@@ -41,12 +46,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // Compose
-    implementation(platform(libs.compose.bom))
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
-    debugImplementation(libs.compose.ui.tooling)
-
-    // Coil
-    implementation(libs.coil.compose)
 }
