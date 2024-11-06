@@ -31,4 +31,6 @@ google-services.json
 
 # Android Profiling
 *.hprof
-/**/compose-metrics/*
+
+# Compose metrics
+/**/compose-metrics/
