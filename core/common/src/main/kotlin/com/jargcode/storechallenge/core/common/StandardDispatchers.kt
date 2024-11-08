@@ -1,6 +1,6 @@
 package com.jargcode.storechallenge.core.common
 
-import com.jargcode.storechallenge.core.domain.DispatcherProvider
+import com.jargcode.storechallenge.core.domain.common.coroutines.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
