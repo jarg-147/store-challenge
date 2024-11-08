@@ -3,6 +3,7 @@ import com.jargcode.storechallenge.convention.setAndroidNamespace
 plugins {
     alias(libs.plugins.store.android.library)
     alias(libs.plugins.store.hilt)
+    alias(libs.plugins.store.android.library.flavors)
 }
 
 android {

@@ -23,14 +23,20 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
         }
     }
 }
 
 dependencies {
     // Modules
+    implementation(projects.core.common)
+    implementation(projects.core.data)
     implementation(projects.core.domain)
-    implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
+
+    implementation(projects.feature.productsList)
 
     // Kotlin
     implementation(libs.kotlinx.coroutines.core)

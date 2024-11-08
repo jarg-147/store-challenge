@@ -85,6 +85,11 @@ gradlePlugin {
             implementationClass = "AndroidLibraryFlavorsConventionPlugin"
         }
 
+        register("androidFeature") {
+            id = "store.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
+
         // endregion Android plugins
 
         // region JVM plugins

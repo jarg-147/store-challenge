@@ -107,10 +107,11 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
-retrofit-okhhtp = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+retrofit-okhttp = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 # Room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 # Coil
@@ -168,6 +169,7 @@ store-android-application = { id = "store.android.application", version = "unspe
 store-android-application-compose = { id = "store.android.application.compose", version = "unspecified" }
 store-android-application-firebase = { id = "store.android.application.firebase", version = "unspecified" }
 store-android-application-flavors = { id = "store.android.application.flavors", version = "unspecified" }
+store-android-feature = { id = "store.android.feature", version = "unspecified" }
 
 store-android-library = { id = "store.android.library", version = "unspecified" }
 store-android-library-compose = { id = "store.android.library.compose", version = "unspecified" }

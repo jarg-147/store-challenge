@@ -1,4 +1,4 @@
-package com.jargcode.storechallenge.core.domain
+package com.jargcode.storechallenge.core.domain.common.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
 

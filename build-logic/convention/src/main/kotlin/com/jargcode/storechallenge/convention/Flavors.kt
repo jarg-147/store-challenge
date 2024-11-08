@@ -1,6 +1,7 @@
 package com.jargcode.storechallenge.convention
 
 import com.android.build.api.dsl.*
+import com.jargcode.storechallenge.convention.Flavor.*
 import com.jargcode.storechallenge.convention.FlavorDimension.env
 
 @Suppress("EnumEntryName")
@@ -25,12 +26,39 @@ internal fun configureFlavors(
     productFlavors {
         Flavor
             .values()
-            .forEach { flavour ->
-                create(flavour.name) {
-                    dimension = flavour.dimension.name
+            .forEach { flavor ->
+                create(flavor.name) {
+                    dimension = flavor.dimension.name
+
                     if (this@with is ApplicationExtension && this is ApplicationProductFlavor) {
-                        flavour.applicationIdSuffix?.let { suffix ->
+                        flavor.applicationIdSuffix?.let { suffix ->
                             applicationIdSuffix = suffix
+                        }
+                    }
+
+                    when (flavor) {
+                        dev -> {
+                            buildConfigField(
+                                "String",
+                                "BASE_URL",
+                                "\"https://gist.githubusercontent.com/palcalde/\""
+                            )
+                        }
+
+                        staging -> {
+                            buildConfigField(
+                                "String",
+                                "BASE_URL",
+                                "\"https://gist.githubusercontent.com/palcalde/\""
+                            )
+                        }
+
+                        prod -> {
+                            buildConfigField(
+                                "String",
+                                "BASE_URL",
+                                "\"https://gist.githubusercontent.com/palcalde/\""
+                            )
                         }
                     }
                 }
