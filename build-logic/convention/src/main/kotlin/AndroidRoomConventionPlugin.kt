@@ -25,6 +25,7 @@ class AndroidRoomConventionPlugin : Plugin<Project> {
 
         dependencies {
             add("implementation", libs.library("room-runtime"))
+            add("implementation", libs.library("room-ktx"))
             add("ksp", libs.library("room-compiler"))
         }
     }
