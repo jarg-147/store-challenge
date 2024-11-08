@@ -11,7 +11,6 @@ import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 @Preview(
     name = "Device",
     showBackground = true,
-    showSystemUi = true,
     device = "spec:width=1080px,height=2340px,dpi=440",
     backgroundColor = 0xFFF8F8F8
 )
