@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 
 // region Global colors
 
+val grey_10 = Color(0xFFF8F8F8)
 val grey_30 = Color(0xFFDDDDDD)
 val grey_50 = Color(0xFFAAAAAA)
 val grey_70 = Color(0xFF464646)
@@ -49,6 +50,7 @@ data class StoreBackgroundColors(
     val backgroundMoradul: Color,
     val backgroundDisabled: Color,
     val backgroundWhite: Color,
+    val backgroundGrey: Color,
 )
 
 val LocalStoreBackgroundColors = staticCompositionLocalOf {
@@ -56,6 +58,7 @@ val LocalStoreBackgroundColors = staticCompositionLocalOf {
         backgroundMoradul = Color.Unspecified,
         backgroundDisabled = Color.Unspecified,
         backgroundWhite = Color.Unspecified,
+        backgroundGrey = Color.Unspecified,
     )
 }
 
@@ -63,6 +66,7 @@ val storeBackgroundColors = StoreBackgroundColors(
     backgroundMoradul = moradul,
     backgroundDisabled = grey_30,
     backgroundWhite = white,
+    backgroundGrey = grey_10,
 )
 
 // endregion Background colors

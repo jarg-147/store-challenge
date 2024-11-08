@@ -31,22 +31,39 @@ private val caption: TextStyle
     @Composable
     get() = baseText
 
+private val captionWhite: TextStyle
+    @Composable
+    get() = baseText.copy(
+        color = white
+    )
+
 private val captionSmall: TextStyle
     @Composable
     get() = caption.copy(
         fontSize = 12.sp
     )
 
+private val captionSmallMoradul: TextStyle
+    @Composable
+    get() = caption.copy(
+        fontSize = 12.sp,
+        color = moradul
+    )
+
 @Immutable
 data class StoreCaptionTexts(
     val caption: TextStyle,
+    val captionWhite: TextStyle,
     val captionSmall: TextStyle,
+    val captionSmallMoradul: TextStyle,
 )
 
 val LocalStoreCaptionTexts = staticCompositionLocalOf {
     StoreCaptionTexts(
         caption = TextStyle.Default,
+        captionWhite = TextStyle.Default,
         captionSmall = TextStyle.Default,
+        captionSmallMoradul = TextStyle.Default
     )
 }
 
@@ -54,7 +71,9 @@ val storeCaptionTexts: StoreCaptionTexts
     @Composable
     get() = StoreCaptionTexts(
         caption = caption,
+        captionWhite = captionWhite,
         captionSmall = captionSmall,
+        captionSmallMoradul = captionSmallMoradul
     )
 
 // endregion Caption
@@ -158,7 +177,9 @@ private fun TextStylesPreview() {
     PreviewContainer {
         val captionStyles = listOf(
             "caption" to StoreTheme.captionTexts.caption,
-            "captionSmall" to StoreTheme.captionTexts.captionSmall
+            "captionSmall" to StoreTheme.captionTexts.captionSmall,
+            "captionSmallMoradul" to StoreTheme.captionTexts.captionSmallMoradul,
+            "captionWhite" to StoreTheme.captionTexts.captionWhite
         )
 
         val bodyStyles = listOf(
