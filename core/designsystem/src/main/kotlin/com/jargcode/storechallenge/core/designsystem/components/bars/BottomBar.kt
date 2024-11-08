@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.jargcode.storechallenge.core.designsystem.preview.PreviewContainer
 import com.jargcode.storechallenge.core.designsystem.preview.WidgetPreview
 import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
-import com.jargcode.storechallenge.core.domain.Route
+import com.jargcode.storechallenge.core.domain.common.navigation.Route
 
 // region Models
 
