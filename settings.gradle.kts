@@ -31,3 +31,6 @@ include(":core:common")
 include(":core:designsystem")
 include(":core:ui")
 include(":core:testing")
+
+// Feature
+include(":feature:products-list")
