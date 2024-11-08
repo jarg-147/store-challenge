@@ -17,7 +17,6 @@ fun StoreNavHost(
         navController = navController,
         startDestination = StoreBottomBar
     ) {
-
         storeBottomBar()
 
     }
