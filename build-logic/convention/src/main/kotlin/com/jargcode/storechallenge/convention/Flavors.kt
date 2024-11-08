@@ -15,7 +15,7 @@ enum class Flavor(
     val applicationIdSuffix: String? = null,
 ) {
     dev(dimension = env, applicationIdSuffix = ".dev"),
-    staging(dimension = env, applicationIdSuffix = ".staging"),
+    stag(dimension = env, applicationIdSuffix = ".staging"),
     prod(dimension = env)
 }
 
@@ -45,7 +45,7 @@ internal fun configureFlavors(
                             )
                         }
 
-                        staging -> {
+                        stag -> {
                             buildConfigField(
                                 "String",
                                 "BASE_URL",
