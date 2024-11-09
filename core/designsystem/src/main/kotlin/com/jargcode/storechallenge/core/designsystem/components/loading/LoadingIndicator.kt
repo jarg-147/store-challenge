@@ -1,6 +1,7 @@
 package com.jargcode.storechallenge.core.designsystem.components.loading
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -18,7 +19,9 @@ fun LoadingIndicator(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.background(Color.Black.copy(0.5f)),
+        modifier = modifier
+            .background(Color.Black.copy(0.5f))
+            .clickable(onClick = {}),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

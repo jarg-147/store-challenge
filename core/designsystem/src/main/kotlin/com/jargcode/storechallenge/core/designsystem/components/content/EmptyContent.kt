@@ -40,6 +40,7 @@ fun EmptyView(
             modifier = Modifier.size(100.dp),
             imageVector = icon,
             contentDescription = contentDescription,
+            tint = StoreTheme.iconColors.moradul
         )
 
         Text(

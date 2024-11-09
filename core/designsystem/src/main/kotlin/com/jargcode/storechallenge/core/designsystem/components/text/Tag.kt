@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Discount
 import androidx.compose.material.icons.rounded.LocalOffer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -21,14 +22,14 @@ import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 // region Tag
 
 @Composable
-fun PromotionTag(
+fun DiscountTag(
     modifier: Modifier = Modifier,
 ) {
     TagWidget(
         modifier = modifier,
         icon = Icons.Rounded.LocalOffer,
-        contentDescription = Icons.Rounded.LocalOffer.name,
-        text = stringResource(R.string.promotion)
+        contentDescription = Icons.Rounded.Discount.name,
+        text = stringResource(R.string.discount)
     )
 }
 
@@ -56,6 +57,7 @@ private fun TagWidget(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Icon(
+                modifier = Modifier.size(16.dp),
                 imageVector = icon,
                 contentDescription = contentDescription,
                 tint = StoreTheme.iconColors.white
@@ -79,7 +81,7 @@ private fun TagPreviews() {
     PreviewContainer(
         modifier = Modifier.padding(16.dp)
     ) {
-        PromotionTag()
+        DiscountTag()
     }
 }
 
