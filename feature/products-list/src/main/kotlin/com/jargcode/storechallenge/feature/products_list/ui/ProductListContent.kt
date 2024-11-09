@@ -25,13 +25,13 @@ fun ProductListContent(
     ) {
         items(
             items = products,
-            key = { it.id }
+            key = { it.code }
         ) { product ->
             ProductCard(
                 modifier = Modifier.fillMaxWidth(),
                 product = product,
                 onAddToCartClick = {
-                    onUiEvent(OnAddProductToCartClick(productId = product.id))
+                    onUiEvent(OnAddProductToCartClick(productId = product.code))
                 }
             )
         }
@@ -46,8 +46,8 @@ private fun ProductListContentPreview() {
             modifier = Modifier.fillMaxSize(),
             products = listOf(
                 ProductUi.mock,
-                ProductUi.mock.copy(id = "2"),
-                ProductUi.mock.copy(id = "3"),
+                ProductUi.mock.copy(code = "2"),
+                ProductUi.mock.copy(code = "3"),
             ),
             onUiEvent = {}
         )

@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jargcode.storechallenge.core.designsystem.components.button.PrimaryButton
 import com.jargcode.storechallenge.core.designsystem.components.image.Image
-import com.jargcode.storechallenge.core.designsystem.components.text.PromotionTag
+import com.jargcode.storechallenge.core.designsystem.components.text.DiscountTag
 import com.jargcode.storechallenge.core.designsystem.preview.PreviewContainer
 import com.jargcode.storechallenge.core.designsystem.preview.WidgetPreview
 import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
@@ -35,7 +35,7 @@ fun ProductCard(
             defaultElevation = 6.dp
         )
     ) {
-        val promotionText = product.promotionText?.value.orEmpty()
+        val discountText = product.discountText?.value.orEmpty()
 
         Column(
             modifier = Modifier.padding(16.dp),
@@ -50,8 +50,8 @@ fun ProductCard(
                     imageUrl = product.imageUrl,
                     contentScale = ContentScale.Fit
                 )
-                if (promotionText.isNotBlank()) {
-                    PromotionTag(
+                if (discountText.isNotBlank()) {
+                    DiscountTag(
                         modifier = Modifier.padding(
                             top = 8.dp,
                             start = 8.dp
@@ -70,13 +70,15 @@ fun ProductCard(
                 ) {
                     Text(
                         text = product.name,
-                        style = StoreTheme.titleTexts.title
+                        style = StoreTheme.titleTexts.title,
+                        fontWeight = FontWeight.SemiBold
                     )
 
-                    if (promotionText.isNotBlank()) {
+                    if (discountText.isNotBlank()) {
                         Text(
-                            text = promotionText,
-                            style = StoreTheme.captionTexts.captionSmallMoradul
+                            text = discountText,
+                            style = StoreTheme.captionTexts.captionSmallMoradul,
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
                 }
@@ -84,12 +86,15 @@ fun ProductCard(
                 Text(
                     text = product.price,
                     style = StoreTheme.bodyTexts.body,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Medium
                 )
             }
 
             PrimaryButton(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 16.dp),
                 text = stringResource(R.string.add_to_cart),
                 onClick = onAddToCartClick
             )

@@ -33,12 +33,15 @@ import com.jargcode.storechallenge.feature.products_list.model.ProductsListVMEve
 import com.jargcode.storechallenge.feature.products_list.model.ProductsListVMEvent.ShowProductAddedToCartSuccess
 import com.jargcode.storechallenge.feature.products_list.preview.ProductsListPreviewParameterProvider
 import com.jargcode.storechallenge.feature.products_list.ui.ProductListContent
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProductsListRoute(
     viewModel: ProductsListViewModel = hiltViewModel(),
 ) {
 
+    val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarState = remember { SnackbarHostState() }
@@ -64,17 +67,23 @@ fun ProductsListRoute(
     ) { event ->
         when (event) {
             ShowProductAddedToCartError -> {
-                snackbarState.showSnackbar(
-                    message = context.getString(R.string.product_added_to_cart_error),
-                    withDismissAction = true
-                )
+                scope.coroutineContext.cancelChildren()
+                scope.launch {
+                    snackbarState.showSnackbar(
+                        message = context.getString(R.string.product_added_to_cart_error),
+                        withDismissAction = true
+                    )
+                }
             }
 
             ShowProductAddedToCartSuccess -> {
-                snackbarState.showSnackbar(
-                    message = context.getString(R.string.product_added_to_cart_success),
-                    withDismissAction = true
-                )
+                scope.coroutineContext.cancelChildren()
+                scope.launch {
+                    snackbarState.showSnackbar(
+                        message = context.getString(R.string.product_added_to_cart_success),
+                        withDismissAction = true
+                    )
+                }
             }
         }
     }
