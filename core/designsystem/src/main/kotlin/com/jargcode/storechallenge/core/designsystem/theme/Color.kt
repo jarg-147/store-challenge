@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 
 // region Global colors
 
-val grey_10 = Color(0xFFF8F8F8)
+val grey_10 = Color(0xFFEEEEEE)
 val grey_30 = Color(0xFFDDDDDD)
 val grey_50 = Color(0xFFAAAAAA)
 val grey_70 = Color(0xFF464646)
