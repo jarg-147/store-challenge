@@ -37,6 +37,7 @@ dependencies {
     implementation(projects.core.ui)
 
     implementation(projects.feature.productsList)
+    implementation(projects.feature.cart)
 
     // Kotlin
     implementation(libs.kotlinx.coroutines.core)
@@ -55,4 +56,7 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
+
+    // Hilt
+    implementation(libs.hilt.navigation.compose)
 }
