@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cart_title">Your cart</string>
+
+    <string name="cart_error_title">An error occurred</string>
+    <string name="cart_error_text">We could not load your cart.</string>
+    <string name="cart_error_button">Try again</string>
+
+    <string name="cart_empty_title">Empty cart</string>
+    <string name="cart_empty_text">Add your first product to your cart!</string>
+
+    <string name="products_in_your_cart">Products in your cart:</string>
+
+    <string name="discount_applied">Discount eligible at checkout!</string>
+    <string name="discount_not_applied_free_item">Buy %1$d more and get 1 free!</string>
+    <string name="discount_not_applied_fixed_price">Buy %1$d more and get each one at %2$s!</string>
+
+    <string name="total_price">Total:</string>
+    <string name="checkout_disclaimer">*Discounts are calculated during the checkout process</string>
+    <string name="checkout">Checkout</string>
+
+    <string name="delete_product_from_cart_success">Product removed from your cart</string>
+    <string name="delete_product_from_cart_error">Product could not be removed from your cart</string>
+</resources>

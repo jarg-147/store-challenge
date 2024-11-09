@@ -24,6 +24,8 @@ import com.jargcode.storechallenge.core.domain.common.navigation.Route
 data class BottomBarDestination(
     val route: Route,
     val icon: ImageVector,
+    val label: String,
+    val badge: String? = null,
 )
 
 // endregion Models
@@ -60,8 +62,10 @@ fun StoreBottomBar(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = ripple(color = StoreTheme.rippleColors.ripple),
                         ),
+                    isSelected = isSelected,
                     icon = destination.icon,
-                    isSelected = isSelected
+                    label = destination.label,
+                    badge = destination.badge
                 )
             }
         }
@@ -71,37 +75,54 @@ fun StoreBottomBar(
 @Composable
 private fun BottomBarItem(
     modifier: Modifier,
+    isSelected: Boolean,
     icon: ImageVector,
     contentDescription: String = icon.name,
-    isSelected: Boolean,
+    label: String,
+    badge: String?,
 ) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
+    Column(
+        modifier = modifier
+            .padding(
+                vertical = 4.dp,
+                horizontal = 8.dp
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .padding(
-                    vertical = 4.dp,
-                    horizontal = 8.dp
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+        val tint = if (isSelected) {
+            StoreTheme.iconColors.moradul
+        } else {
+            StoreTheme.iconColors.disabled
+        }
+        BadgedBox(
+            badge = {
+                if (!badge.isNullOrBlank()) {
+                    Badge(
+                        containerColor = StoreTheme.backgroundColors.backgroundMoradul,
+                        contentColor = StoreTheme.iconColors.white
+                    ) {
+                        Text(
+                            text = badge,
+                            style = StoreTheme.captionTexts.captionSmall
+                        )
+                    }
+                }
+            },
         ) {
-
-            val iconTint = if (isSelected) {
-                StoreTheme.iconColors.moradul
-            } else {
-                StoreTheme.iconColors.disabled
-            }
-
             Icon(
                 modifier = Modifier.size(24.dp),
                 imageVector = icon,
                 contentDescription = contentDescription,
-                tint = iconTint
+                tint = tint
             )
         }
+
+        Text(
+            text = label,
+            style = StoreTheme.captionTexts.captionSmall,
+            color = tint
+        )
     }
 }
 
@@ -123,11 +144,13 @@ private fun StoreBottomBarPreview() {
             destinations = listOf(
                 BottomBarDestination(
                     route = TestRoute1,
-                    icon = Icons.Rounded.ShoppingBag
+                    icon = Icons.Rounded.ShoppingBag,
+                    label = "Products"
                 ),
                 BottomBarDestination(
                     route = TestRoute2,
-                    icon = Icons.Rounded.ShoppingCart
+                    icon = Icons.Rounded.ShoppingCart,
+                    label = "Cart"
                 ),
             ),
             onItemClick = {}

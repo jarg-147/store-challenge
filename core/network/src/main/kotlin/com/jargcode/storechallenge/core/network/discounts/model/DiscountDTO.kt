@@ -1,19 +1,19 @@
-package com.jargcode.storechallenge.core.network.promotions.model
+package com.jargcode.storechallenge.core.network.discounts.model
 
-import com.jargcode.storechallenge.core.domain.promotions.model.Promotion
-import com.jargcode.storechallenge.core.domain.promotions.model.Promotion.FixedPrice
-import com.jargcode.storechallenge.core.domain.promotions.model.Promotion.FreeItem
+import com.jargcode.storechallenge.core.domain.discounts.model.Discount
+import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FixedPrice
+import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FreeItem
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PromotionDTO(
+data class DiscountDTO(
     val productId: String,
     val type: String,
     val minQuantity: Int,
     val fixedPrice: Double? = null,
 )
 
-fun PromotionDTO.toPromotion(): Promotion? = when {
+fun DiscountDTO.toDiscount(): Discount? = when {
     type.equals("FIXED_PRICE", ignoreCase = true) -> {
         fixedPrice?.let { price ->
             FixedPrice(

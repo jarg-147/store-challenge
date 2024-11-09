@@ -1,11 +1,11 @@
 package com.jargcode.storechallenge.core.data.di
 
 import com.jargcode.storechallenge.core.data.cart.CartRepositoryImpl
+import com.jargcode.storechallenge.core.data.discounts.DiscountsRepositoryImpl
 import com.jargcode.storechallenge.core.data.products.ProductsRepositoryImpl
-import com.jargcode.storechallenge.core.data.promotions.PromotionsRepositoryImpl
 import com.jargcode.storechallenge.core.domain.cart.CartRepository
+import com.jargcode.storechallenge.core.domain.discounts.DiscountsRepository
 import com.jargcode.storechallenge.core.domain.products.ProductsRepository
-import com.jargcode.storechallenge.core.domain.promotions.PromotionsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,8 +26,8 @@ abstract class DataModule {
     ): ProductsRepository
 
     @Binds
-    internal abstract fun bindPromotionRepository(
-        promotionsRepositoryImpl: PromotionsRepositoryImpl
-    ): PromotionsRepository
+    internal abstract fun bindDiscountsRepository(
+        discountsRepositoryImpl: DiscountsRepositoryImpl
+    ): DiscountsRepository
 
 }

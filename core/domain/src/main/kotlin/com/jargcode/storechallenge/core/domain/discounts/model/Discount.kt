@@ -1,6 +1,6 @@
-package com.jargcode.storechallenge.core.domain.promotions.model
+package com.jargcode.storechallenge.core.domain.discounts.model
 
-sealed class Promotion(
+sealed class Discount(
     open val productId: String,
     open val minQuantity: Int,
 ) {
@@ -9,7 +9,7 @@ sealed class Promotion(
         override val productId: String,
         override val minQuantity: Int,
         val fixedPrice: Double,
-    ) : Promotion(
+    ) : Discount(
         productId = productId,
         minQuantity = minQuantity
     )
@@ -17,7 +17,7 @@ sealed class Promotion(
     data class FreeItem(
         override val productId: String,
         override val minQuantity: Int
-    ) : Promotion(
+    ) : Discount(
         productId = productId,
         minQuantity = minQuantity
     )
