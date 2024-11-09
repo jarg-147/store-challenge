@@ -1,9 +1,9 @@
 package com.jargcode.storechallenge.core.network.di
 
+import com.jargcode.storechallenge.core.network.discounts.DemoDiscountsRemoteDataSource
+import com.jargcode.storechallenge.core.network.discounts.DemoDiscountsRemoteDataSourceImpl
 import com.jargcode.storechallenge.core.network.products.ProductsRemoteDataSource
 import com.jargcode.storechallenge.core.network.products.ProductsRemoteDataSourceImpl
-import com.jargcode.storechallenge.core.network.promotions.DemoPromotionsRemoteDataSource
-import com.jargcode.storechallenge.core.network.promotions.DemoPromotionsRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,9 +14,9 @@ import dagger.hilt.components.SingletonComponent
 internal abstract class NetworkModule {
 
     @Binds
-    internal abstract fun bindDemoPromotionRemoteDataSource(
-        impl: DemoPromotionsRemoteDataSourceImpl,
-    ): DemoPromotionsRemoteDataSource
+    internal abstract fun bindDemoDiscountsRemoteDataSource(
+        impl: DemoDiscountsRemoteDataSourceImpl,
+    ): DemoDiscountsRemoteDataSource
 
     @Binds
     internal abstract fun bindProductsRemoteDataSource(
