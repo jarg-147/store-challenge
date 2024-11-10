@@ -41,11 +41,13 @@ class CartViewModel @Inject constructor(
                     }
                 }
         }
-
     }
 
     fun onRetryClick() {
-        init()
+        viewModelScope.launch {
+            _uiState.update { CartUiState.Loading }
+            init()
+        }
     }
 
     fun onDeleteItemClick(productCode: String) {

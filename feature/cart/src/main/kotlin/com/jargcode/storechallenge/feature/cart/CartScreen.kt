@@ -1,5 +1,6 @@
 package com.jargcode.storechallenge.feature.cart
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -101,7 +102,8 @@ fun CartRoute(
 }
 
 @Composable
-private fun CartScreen(
+@VisibleForTesting
+internal fun CartScreen(
     uiState: CartUiState,
     snackbarState: SnackbarHostState,
     onUiEvent: (CartUiEvent) -> Unit,

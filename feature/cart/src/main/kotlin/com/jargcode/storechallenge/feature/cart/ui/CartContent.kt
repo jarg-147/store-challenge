@@ -11,7 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -33,7 +36,7 @@ fun CartContent(
     onUiEvent: (CartUiEvent) -> Unit,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier.testTag(stringResource(R.string.cart_content_test_tag))
     ) {
         val anyProductWithApplicableDiscount = items.any { product ->
             product.discountInfo?.minQuantityReached == true
@@ -102,7 +105,11 @@ fun CartContent(
                     style = StoreTheme.titleTexts.title
                 )
 
+                val totalContentDescription = stringResource(R.string.total_price_content_description)
                 Text(
+                    modifier = Modifier.semantics {
+                        contentDescription = totalContentDescription
+                    },
                     text = if (anyProductWithApplicableDiscount) {
                         "*$total"
                     } else {
