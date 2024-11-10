@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cart_title">Your cart</string>
+
+    <string name="cart_toolbar_title">Your cart</string>
 
     <string name="cart_error_title">An error occurred</string>
     <string name="cart_error_text">We could not load your cart.</string>
@@ -9,19 +10,20 @@
     <string name="cart_empty_title">Empty cart</string>
     <string name="cart_empty_text">Add your first product to your cart!</string>
 
-    <string name="products_in_your_cart">Products in your cart:</string>
+    <string name="products_in_cart_header">Products in your cart:</string>
 
     <string name="discount_applied">Discount eligible at checkout!</string>
-    <string name="discount_not_applied_free_item">Buy %1$d more and get 1 free!</string>
-    <string name="discount_not_applied_fixed_price">Buy %1$d more and get each one at %2$s!</string>
+    <string name="discount_free_item_not_applied">Buy %1$d more and get 1 free!</string>
+    <string name="discount_fixed_price_not_applied">Buy %1$d more and get each one at %2$s!</string>
 
-    <string name="total_price">Total:</string>
-    <string name="checkout_disclaimer">*Discounts are calculated during the checkout process</string>
-    <string name="checkout">Checkout</string>
+    <string name="total_price_label">Total:</string>
+    <string name="total_price_value_with_discounts">*%1$s</string>
+    <string name="checkout_discounts_disclaimer">*Discounts are calculated during the checkout process</string>
+    <string name="checkout_button_text">Checkout</string>
 
-    <string name="delete_product_from_cart_success">Product removed from your cart</string>
-    <string name="delete_product_from_cart_error">Product could not be removed from your cart</string>
+    <string name="snackbar_delete_product_from_cart_success">Product removed from your cart</string>
+    <string name="snackbar_delete_product_from_cart_error">Product could not be removed from your cart</string>
+    <string name="product_price_per_unit_with_discount">*%1$s / u</string>
+    <string name="product_price_per_unit_without_discount">%1$s / u</string>
 
-    <string name="cart_content_test_tag">cart_content_test_tag</string>
-    <string name="total_price_content_description">Cart total price</string>
 </resources>
