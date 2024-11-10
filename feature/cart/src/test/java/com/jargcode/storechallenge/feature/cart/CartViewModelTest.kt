@@ -9,7 +9,7 @@ import com.jargcode.storechallenge.core.testing.cart.FakeCartRepository
 import com.jargcode.storechallenge.core.testing.coroutines.MainCoroutineRule
 import com.jargcode.storechallenge.core.testing.discounts.FakeDiscountsRepository
 import com.jargcode.storechallenge.core.testing.products.FakeProductsRepository
-import com.jargcode.storechallenge.core.testing.products.getFakeProducts
+import com.jargcode.storechallenge.core.testing.products.products
 import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.cart.model.CartUiState
 import com.jargcode.storechallenge.feature.cart.model.CartVMEvent
@@ -56,7 +56,7 @@ class CartViewModelTest {
     fun `given user is in cart, when viewmodel init is called, then cart items are loaded`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
             productsRepository.setProducts(fakeProducts)
 
             val cartProduct = fakeProducts.first()
@@ -73,9 +73,9 @@ class CartViewModelTest {
             assertThat(successEmission).isInstanceOf(CartUiState.Success::class)
 
             successEmission as CartUiState.Success
-            assertThat(successEmission.items.size).isEqualTo(1)
-            assertThat(successEmission.items.first().code).isEqualTo(cartProduct.code)
-            assertThat(successEmission.totalPrice).isEqualTo(cartProduct.price.toFormattedPrice())
+            assertThat(successEmission.cartProducts.size).isEqualTo(1)
+            assertThat(successEmission.cartProducts.first().code).isEqualTo(cartProduct.code)
+            assertThat(successEmission.totalPriceWithoutDiscounts).isEqualTo(cartProduct.price.toFormattedPrice())
         }
     }
 
@@ -83,14 +83,14 @@ class CartViewModelTest {
     fun `given user is in cart, when viewmodel init returns error, then error is displayed`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
             productsRepository.setProducts(fakeProducts)
 
             val loadingEmission = awaitItem()
             assertThat(loadingEmission).isEqualTo(CartUiState.Loading)
 
             // WHEN
-            productsRepository.shouldReturnError = true
+            productsRepository.getProductsThrowError = true
             viewModel.init()
 
             // THEN
@@ -104,7 +104,7 @@ class CartViewModelTest {
     fun `given state is error, when user clicks retry, products are loaded`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
             productsRepository.setProducts(fakeProducts)
 
             val cartProduct = fakeProducts.first()
@@ -113,14 +113,14 @@ class CartViewModelTest {
             val loadingEmission = awaitItem()
             assertThat(loadingEmission).isEqualTo(CartUiState.Loading)
 
-            productsRepository.shouldReturnError = true
+            productsRepository.getProductsThrowError = true
             viewModel.init()
 
             val errorEmission = awaitItem()
             assertThat(errorEmission).isEqualTo(CartUiState.Error)
 
             // WHEN
-            productsRepository.shouldReturnError = false
+            productsRepository.getProductsThrowError = false
             viewModel.onRetryClick()
 
             // THEN
@@ -131,9 +131,9 @@ class CartViewModelTest {
             assertThat(successEmission).isInstanceOf(CartUiState.Success::class)
 
             successEmission as CartUiState.Success
-            assertThat(successEmission.items.size).isEqualTo(1)
-            assertThat(successEmission.items.first().code).isEqualTo(cartProduct.code)
-            assertThat(successEmission.totalPrice).isEqualTo(cartProduct.price.toFormattedPrice())
+            assertThat(successEmission.cartProducts.size).isEqualTo(1)
+            assertThat(successEmission.cartProducts.first().code).isEqualTo(cartProduct.code)
+            assertThat(successEmission.totalPriceWithoutDiscounts).isEqualTo(cartProduct.price.toFormattedPrice())
         }
     }
 
@@ -141,7 +141,7 @@ class CartViewModelTest {
     fun `given cart is loaded, when user clicks remove product, then product is removed`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
             productsRepository.setProducts(fakeProducts)
 
             val cartProduct = fakeProducts.first()
@@ -156,13 +156,13 @@ class CartViewModelTest {
             assertThat(successEmission).isInstanceOf(CartUiState.Success::class)
 
             successEmission as CartUiState.Success
-            assertThat(successEmission.items.size).isEqualTo(1)
-            assertThat(successEmission.items.first().code).isEqualTo(cartProduct.code)
-            assertThat(successEmission.totalPrice).isEqualTo(cartProduct.price.toFormattedPrice())
+            assertThat(successEmission.cartProducts.size).isEqualTo(1)
+            assertThat(successEmission.cartProducts.first().code).isEqualTo(cartProduct.code)
+            assertThat(successEmission.totalPriceWithoutDiscounts).isEqualTo(cartProduct.price.toFormattedPrice())
 
             cartRepository.getUserCartItems().test {
                 // WHEN
-                viewModel.onDeleteItemClick(cartProduct.code)
+                viewModel.onDeleteProductFromCartClick(cartProduct.code)
 
                 // THEN
                 awaitItem() // Ignore first emission
@@ -178,7 +178,7 @@ class CartViewModelTest {
     fun `given cart is loaded, when delete product form cart fails, then error is catch`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
             productsRepository.setProducts(fakeProducts)
 
             val cartProduct = fakeProducts.first()
@@ -193,14 +193,14 @@ class CartViewModelTest {
             assertThat(successEmission).isInstanceOf(CartUiState.Success::class)
 
             successEmission as CartUiState.Success
-            assertThat(successEmission.items.size).isEqualTo(1)
-            assertThat(successEmission.items.first().code).isEqualTo(cartProduct.code)
-            assertThat(successEmission.totalPrice).isEqualTo(cartProduct.price.toFormattedPrice())
+            assertThat(successEmission.cartProducts.size).isEqualTo(1)
+            assertThat(successEmission.cartProducts.first().code).isEqualTo(cartProduct.code)
+            assertThat(successEmission.totalPriceWithoutDiscounts).isEqualTo(cartProduct.price.toFormattedPrice())
 
             viewModel.vmEvent.test {
                 // WHEN
                 cartRepository.removeProductReturnsError = true
-                viewModel.onDeleteItemClick(cartProduct.code)
+                viewModel.onDeleteProductFromCartClick(cartProduct.code)
 
                 // THEN
                 val errorEmission = awaitItem()
@@ -213,7 +213,7 @@ class CartViewModelTest {
     fun `given cart is loaded, when saved product is unknown, then empty cart is returned`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
             productsRepository.setProducts(fakeProducts)
 
             cartRepository.addProduct("123")
@@ -227,7 +227,7 @@ class CartViewModelTest {
             assertThat(successEmission).isInstanceOf(CartUiState.Success::class)
 
             successEmission as CartUiState.Success
-            assertThat(successEmission.items).isEmpty()
+            assertThat(successEmission.cartProducts).isEmpty()
         }
     }
 
