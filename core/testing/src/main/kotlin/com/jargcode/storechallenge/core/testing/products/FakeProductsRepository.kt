@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.*
 
 class FakeProductsRepository : ProductsRepository {
 
-    var shouldReturnError = false
+    var getProductsThrowError = false
 
     private val _products: MutableStateFlow<List<Product>> = MutableStateFlow(emptyList())
 
-    override fun getProducts(): Flow<List<Product>> = if (!shouldReturnError) {
+    override fun getProducts(): Flow<List<Product>> = if (!getProductsThrowError) {
         _products
     } else {
         flow { throw Exception("Fake error") }

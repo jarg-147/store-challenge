@@ -2,7 +2,7 @@ package com.jargcode.storechallenge.core.testing.products
 
 import com.jargcode.storechallenge.core.domain.products.model.Product
 
-fun getFakeProducts() = listOf(
+fun products(): List<Product> = listOf(
     Product(
         code = "VOUCHER",
         name = "Cabify Voucher",

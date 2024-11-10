@@ -6,9 +6,9 @@ import assertk.assertions.isEqualTo
 import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FreeItem
 import com.jargcode.storechallenge.core.domain.products.useCase.GetProductsListUseCase
 import com.jargcode.storechallenge.core.testing.discounts.FakeDiscountsRepository
-import com.jargcode.storechallenge.core.testing.discounts.getFakeDiscounts
+import com.jargcode.storechallenge.core.testing.discounts.discounts
 import com.jargcode.storechallenge.core.testing.products.FakeProductsRepository
-import com.jargcode.storechallenge.core.testing.products.getFakeProducts
+import com.jargcode.storechallenge.core.testing.products.products
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -33,8 +33,8 @@ class GetProductsListUseCaseTest {
     fun `given there are discounts, when invoke, then assert products have expected discounts`() = runTest {
         useCase().test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
-            val fakeDiscounts = getFakeDiscounts()
+            val fakeProducts = products()
+            val fakeDiscounts = discounts()
 
             discountsRepository.setDiscounts(fakeDiscounts)
             productsRepository.setProducts(fakeProducts)
@@ -55,7 +55,7 @@ class GetProductsListUseCaseTest {
     fun `given there are not discounts, when invoke, then products do not have discounts`() = runTest {
         useCase().test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
 
             awaitItem() // Ignore first empty emission
 
@@ -74,7 +74,7 @@ class GetProductsListUseCaseTest {
     fun `given there are unknown discounts, when invoke, then products do not have discounts`() = runTest {
         useCase().test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
+            val fakeProducts = products()
             val fakeDiscount = listOf(FreeItem(productCode = "1", minQuantity = 2))
 
             discountsRepository.setDiscounts(fakeDiscount)
