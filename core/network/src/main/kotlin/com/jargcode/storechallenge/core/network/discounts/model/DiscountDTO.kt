@@ -17,7 +17,7 @@ fun DiscountDTO.toDiscount(): Discount? = when {
     type.equals("FIXED_PRICE", ignoreCase = true) -> {
         fixedPrice?.let { price ->
             FixedPrice(
-                productId = productId,
+                productCode = productId,
                 minQuantity = minQuantity,
                 fixedPrice = price
             )
@@ -26,7 +26,7 @@ fun DiscountDTO.toDiscount(): Discount? = when {
 
     type.equals("FREE_ITEM", ignoreCase = true) -> {
         FreeItem(
-            productId = productId,
+            productCode = productId,
             minQuantity = minQuantity,
         )
     }
