@@ -36,6 +36,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.ui)
 
+    // Features
     implementation(projects.feature.productsList)
     implementation(projects.feature.cart)
     implementation(projects.feature.checkout)

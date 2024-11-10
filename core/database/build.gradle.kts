@@ -14,6 +14,4 @@ android {
 dependencies {
     // Modules
     implementation(projects.core.domain)
-    // Dependencies
-
 }

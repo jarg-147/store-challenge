@@ -1,7 +1,7 @@
 [versions]
 
 # App package
-app-packageId = "com.jarg.shop.challenge"
+app-packageId = "com.jargcode.store.challenge"
 
 # App Android SDK
 app-compileSdk = "35"
