@@ -17,6 +17,7 @@ internal fun Project.configureKotlinAndroid(
 
         defaultConfig {
             minSdk = libs.version("app-minSdk").toInt()
+            testInstrumentationRunner = "com.jargcode.storechallenge.core.testing.HiltTestRunner"
         }
 
         compileOptions {
