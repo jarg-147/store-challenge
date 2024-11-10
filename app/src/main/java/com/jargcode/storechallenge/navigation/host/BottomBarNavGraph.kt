@@ -17,6 +17,7 @@ import kotlinx.serialization.Serializable
 fun BottomBarNavGraph(
     modifier: Modifier,
     navController: NavHostController,
+    onNavigate: (Route) -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -26,7 +27,7 @@ fun BottomBarNavGraph(
         productsListScreen()
         cartScreen(
             onNavigateToCheckout = {
-                // TODO
+                onNavigate(Checkout)
             }
         )
     }
@@ -34,6 +35,7 @@ fun BottomBarNavGraph(
 
 @Serializable
 data object ProductsList : Route
+
 private fun NavGraphBuilder.productsListScreen() {
     composable<ProductsList>(
         enterTransition = fadeInTransition,
@@ -47,6 +49,7 @@ private fun NavGraphBuilder.productsListScreen() {
 
 @Serializable
 data object Cart : Route
+
 private fun NavGraphBuilder.cartScreen(
     onNavigateToCheckout: () -> Unit,
 ) {

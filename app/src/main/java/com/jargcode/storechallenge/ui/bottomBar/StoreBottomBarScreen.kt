@@ -21,17 +21,20 @@ import com.jargcode.storechallenge.core.designsystem.components.bars.BottomBarDe
 import com.jargcode.storechallenge.core.designsystem.components.bars.StoreBottomBar
 import com.jargcode.storechallenge.core.designsystem.preview.DevicePreview
 import com.jargcode.storechallenge.core.designsystem.preview.PreviewContainer
+import com.jargcode.storechallenge.core.domain.common.navigation.Route
 import com.jargcode.storechallenge.navigation.host.*
 
 @Composable
 fun StoreBottomBarRoute(
     viewModel: StoreBottomBarViewModel = hiltViewModel(),
+    onNavigate: (Route) -> Unit,
 ) {
 
     val cartCount by viewModel.cartCount.collectAsStateWithLifecycle()
 
     StoreBottomBarScreen(
-        cartCount = cartCount
+        cartCount = cartCount,
+        onNavigate = onNavigate
     )
 
 }
@@ -39,6 +42,7 @@ fun StoreBottomBarRoute(
 @Composable
 private fun StoreBottomBarScreen(
     cartCount: Int = 0,
+    onNavigate: (Route) -> Unit,
 ) {
 
     val navController = rememberNavController()
@@ -81,7 +85,8 @@ private fun StoreBottomBarScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(bottom = paddingValues.calculateBottomPadding()),
-                navController = navController
+                navController = navController,
+                onNavigate = onNavigate
             )
         }
     )
@@ -92,6 +97,8 @@ private fun StoreBottomBarScreen(
 @Composable
 private fun StoreBottomBarScreenPreview() {
     PreviewContainer {
-        StoreBottomBarScreen()
+        StoreBottomBarScreen(
+            onNavigate = {}
+        )
     }
 }

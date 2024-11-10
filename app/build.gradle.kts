@@ -38,6 +38,7 @@ dependencies {
 
     implementation(projects.feature.productsList)
     implementation(projects.feature.cart)
+    implementation(projects.feature.checkout)
 
     // Kotlin
     implementation(libs.kotlinx.coroutines.core)
