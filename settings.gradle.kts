@@ -35,3 +35,4 @@ include(":core:testing")
 // Feature
 include(":feature:products-list")
 include(":feature:cart")
+include(":feature:checkout")
