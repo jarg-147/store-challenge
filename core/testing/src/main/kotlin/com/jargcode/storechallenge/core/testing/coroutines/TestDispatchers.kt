@@ -1,4 +1,4 @@
-package com.jargcode.storechallenge.core.testing
+package com.jargcode.storechallenge.core.testing.coroutines
 
 import com.jargcode.storechallenge.core.domain.common.coroutines.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
