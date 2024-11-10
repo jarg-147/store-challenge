@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.*
 class FakeCartRepository : CartRepository {
 
     private val _products: MutableStateFlow<List<SavedCartItem>> = MutableStateFlow(emptyList())
+
     var addProductReturnsError = false
+    var removeProductReturnsError = false
 
     override suspend fun addProduct(productCode: String) {
         if (addProductReturnsError) {
@@ -24,8 +26,12 @@ class FakeCartRepository : CartRepository {
     override fun getUserCartItems(): Flow<List<SavedCartItem>> = _products
 
     override suspend fun removeCartProduct(productCode: String) {
-        _products.update { state ->
-            state.filterNot { item -> item.productCode == productCode }
+        if (removeProductReturnsError) {
+            throw Exception("Something went wrong")
+        } else {
+            _products.update { state ->
+                state.filterNot { item -> item.productCode == productCode }
+            }
         }
     }
 
