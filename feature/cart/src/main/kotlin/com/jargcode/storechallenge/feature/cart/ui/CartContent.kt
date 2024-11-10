@@ -102,7 +102,8 @@ fun CartContent(
             ) {
                 Text(
                     text = stringResource(R.string.total_price),
-                    style = StoreTheme.titleTexts.title
+                    style = StoreTheme.titleTexts.title,
+                    fontWeight = FontWeight.SemiBold
                 )
 
                 val totalContentDescription = stringResource(R.string.total_price_content_description)
