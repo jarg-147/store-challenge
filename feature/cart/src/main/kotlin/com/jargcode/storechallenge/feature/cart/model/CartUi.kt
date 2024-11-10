@@ -1,5 +1,6 @@
 package com.jargcode.storechallenge.feature.cart.model
 
+import androidx.compose.runtime.Immutable
 import com.jargcode.storechallenge.core.domain.cart.model.Cart
 import com.jargcode.storechallenge.core.domain.cart.model.Cart.CartProduct
 import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FixedPrice
@@ -10,11 +11,13 @@ import com.jargcode.storechallenge.feature.cart.R
 import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi
 import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi.DiscountInfo
 
+@Immutable
 data class CartUi(
     val items: List<CartItemUi>,
     val total: String,
 ) {
 
+    @Immutable
     data class CartItemUi(
         val code: String,
         val name: String,
@@ -24,6 +27,7 @@ data class CartUi(
         val discountInfo: DiscountInfo?,
     ) {
 
+        @Immutable
         data class DiscountInfo(
             val minQuantityReached: Boolean,
             val text: StringWrapper,
