@@ -11,7 +11,7 @@ import com.jargcode.storechallenge.core.database.model.CartItemEntity
     ],
     version = 1
 )
-internal abstract class StoreDatabase : RoomDatabase() {
+abstract class StoreDatabase : RoomDatabase() {
 
     abstract fun cartDao(): CartDao
 

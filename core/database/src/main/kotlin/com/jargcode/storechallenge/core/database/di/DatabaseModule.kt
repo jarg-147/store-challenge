@@ -3,6 +3,7 @@ package com.jargcode.storechallenge.core.database.di
 import android.content.Context
 import androidx.room.Room
 import com.jargcode.storechallenge.core.database.StoreDatabase
+import com.jargcode.storechallenge.core.database.dao.CartDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object DatabaseModule {
+object DatabaseModule {
 
     @Provides
     @Singleton
@@ -23,5 +24,10 @@ internal object DatabaseModule {
         StoreDatabase::class.java,
         "store-database",
     ).build()
+
+    @Provides
+    fun providesCartDao(
+        database: StoreDatabase,
+    ): CartDao = database.cartDao()
 
 }
