@@ -19,7 +19,7 @@ class GetProductsListUseCase @Inject constructor(
         products.map { product ->
             product.copy(
                 discount = discounts.find { discount ->
-                    discount.productId.equals(product.code, ignoreCase = true)
+                    discount.productCode.equals(product.code, ignoreCase = true)
                 }
             )
         }
