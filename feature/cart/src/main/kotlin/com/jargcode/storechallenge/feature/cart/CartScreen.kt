@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -49,8 +50,8 @@ fun CartRoute(
 
     val uiEvent = rememberUiEvent<CartUiEvent> { action ->
         when (action) {
-            is OnDeleteItemFromCartClick -> {
-                viewModel.onDeleteItemClick(productCode = action.itemCode)
+            is OnDeleteProductFromCartClick -> {
+                viewModel.onDeleteProductFromCartClick(productCode = action.productCode)
             }
 
             is OnGoToCheckoutClick -> {
@@ -75,7 +76,7 @@ fun CartRoute(
                 scope.coroutineContext.cancelChildren()
                 scope.launch {
                     snackbarState.showSnackbar(
-                        message = context.getString(R.string.delete_product_from_cart_success),
+                        message = context.getString(R.string.snackbar_delete_product_from_cart_success),
                         withDismissAction = true
                     )
                 }
@@ -85,7 +86,7 @@ fun CartRoute(
                 scope.coroutineContext.cancelChildren()
                 scope.launch {
                     snackbarState.showSnackbar(
-                        message = context.getString(R.string.delete_product_from_cart_error),
+                        message = context.getString(R.string.snackbar_delete_product_from_cart_error),
                         withDismissAction = true
                     )
                 }
@@ -113,7 +114,7 @@ internal fun CartScreen(
         topBar = {
             Toolbar(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.cart_title)
+                text = stringResource(id = R.string.cart_toolbar_title)
             )
         },
         containerColor = StoreTheme.backgroundColors.backgroundGrey,
@@ -144,7 +145,9 @@ internal fun CartScreen(
             }
 
             is Success -> {
-                if (uiState.items.isEmpty()) {
+                val cartProducts = uiState.cartProducts
+                val cartTotal = uiState.totalPriceWithoutDiscounts
+                if (cartProducts.isEmpty()) {
                     EmptyView(
                         modifier = Modifier
                             .fillMaxSize()
@@ -156,9 +159,14 @@ internal fun CartScreen(
                     )
                 } else {
                     CartContent(
-                        modifier = Modifier.fillMaxSize(),
-                        items = uiState.items,
-                        total = uiState.totalPrice,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .testTag(stringResource(R.string.cart_content_test_tag)),
+                        cartProducts = cartProducts,
+                        cartTotal = cartTotal,
+                        anyApplicableDiscount = cartProducts.any { product ->
+                            product.discountInfo?.isApplicable == true
+                        },
                         onUiEvent = onUiEvent
                     )
                 }

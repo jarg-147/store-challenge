@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jargcode.storechallenge.core.designsystem.components.image.Image
@@ -19,14 +20,14 @@ import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 import com.jargcode.storechallenge.core.ui.utils.StringWrapper
 import com.jargcode.storechallenge.feature.cart.R
 import com.jargcode.storechallenge.feature.cart.model.CartUi
-import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi
-import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi.DiscountInfo
+import com.jargcode.storechallenge.feature.cart.model.CartUi.CartProductUi
+import com.jargcode.storechallenge.feature.cart.model.CartUi.CartProductUi.DiscountInfo
 
 @Composable
-fun CartItemCard(
+fun CartProductCart(
     modifier: Modifier = Modifier,
-    item: CartItemUi,
-    onDeleteItemClick: () -> Unit,
+    product: CartProductUi,
+    onDeleteProductClick: () -> Unit,
 ) {
     Card(
         modifier = modifier,
@@ -49,7 +50,7 @@ fun CartItemCard(
                     modifier = Modifier
                         .size(72.dp)
                         .clip(RoundedCornerShape(8.dp)),
-                    imageUrl = item.imageUrl,
+                    imageUrl = product.imageUrl,
                     contentScale = ContentScale.Fit
                 )
 
@@ -58,17 +59,17 @@ fun CartItemCard(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = item.name,
+                        text = product.name,
                         style = StoreTheme.titleTexts.title,
                         fontWeight = FontWeight.SemiBold
                     )
 
                     Text(
-                        text = "x ${item.quantity}",
+                        text = "x ${product.quantity}",
                         style = StoreTheme.bodyTexts.body
                     )
 
-                    val discountInfo = item.discountInfo?.text?.value.orEmpty()
+                    val discountInfo = product.discountInfo?.text?.value.orEmpty()
                     if (discountInfo.isNotBlank()) {
                         Text(
                             text = discountInfo,
@@ -82,13 +83,15 @@ fun CartItemCard(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalAlignment = Alignment.End
                 ) {
-                    val isDiscountApplicable = item.discountInfo?.minQuantityReached ?: false
+                    val isDiscountApplicable = product.discountInfo?.isApplicable ?: false
+                    val productPrice = if (isDiscountApplicable) {
+                        stringResource(R.string.product_price_per_unit_with_discount, product.price)
+                    } else {
+                        stringResource(R.string.product_price_per_unit_without_discount, product.price)
+                    }
+
                     Text(
-                        text = if (isDiscountApplicable) {
-                            "*${item.price} / u"
-                        } else {
-                            "${item.price} / u"
-                        },
+                        text = productPrice,
                         style = StoreTheme.bodyTexts.body,
                         fontWeight = FontWeight.Medium
                     )
@@ -98,7 +101,7 @@ fun CartItemCard(
                             containerColor = StoreTheme.backgroundColors.backgroundMoradul,
                             contentColor = StoreTheme.iconColors.white
                         ),
-                        onClick = onDeleteItemClick
+                        onClick = onDeleteProductClick
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.DeleteOutline,
@@ -113,32 +116,32 @@ fun CartItemCard(
 
 @WidgetPreview
 @Composable
-private fun CartItemCardPreview() {
+private fun CartProductCardPreview() {
     PreviewContainer(
         modifier = Modifier.padding(16.dp)
     ) {
-        CartItemCard(
+        CartProductCart(
             modifier = Modifier.fillMaxWidth(),
-            item = CartUi.mock.items.first().copy(
+            product = CartUi.mock.cartProducts.first().copy(
                 quantity = 2,
                 discountInfo = DiscountInfo(
-                    minQuantityReached = true,
+                    isApplicable = true,
                     text = StringWrapper(resId = R.string.discount_applied)
                 )
             ),
-            onDeleteItemClick = {}
+            onDeleteProductClick = {}
         )
 
-        CartItemCard(
+        CartProductCart(
             modifier = Modifier.fillMaxWidth(),
-            item = CartUi.mock.items.first(),
-            onDeleteItemClick = {}
+            product = CartUi.mock.cartProducts.first(),
+            onDeleteProductClick = {}
         )
 
-        CartItemCard(
+        CartProductCart(
             modifier = Modifier.fillMaxWidth(),
-            item = CartUi.mock.items.first().copy(discountInfo = null),
-            onDeleteItemClick = {}
+            product = CartUi.mock.cartProducts.first().copy(discountInfo = null),
+            onDeleteProductClick = {}
         )
     }
 }

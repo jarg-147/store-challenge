@@ -35,8 +35,8 @@ class CartViewModel @Inject constructor(
                 }.collect { cart ->
                     _uiState.update {
                         CartUiState.Success(
-                            items = cart.items,
-                            totalPrice = cart.total,
+                            cartProducts = cart.cartProducts,
+                            totalPriceWithoutDiscounts = cart.totalPriceWithoutDiscounts,
                         )
                     }
                 }
@@ -50,7 +50,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun onDeleteItemClick(productCode: String) {
+    fun onDeleteProductFromCartClick(productCode: String) {
         viewModelScope.launch {
             try {
                 cartRepository.removeCartProduct(productCode = productCode)

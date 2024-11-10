@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -24,24 +23,21 @@ import com.jargcode.storechallenge.core.designsystem.preview.WidgetPreview
 import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 import com.jargcode.storechallenge.feature.cart.R
 import com.jargcode.storechallenge.feature.cart.model.CartUi
-import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi
+import com.jargcode.storechallenge.feature.cart.model.CartUi.CartProductUi
 import com.jargcode.storechallenge.feature.cart.model.CartUiEvent
 import com.jargcode.storechallenge.feature.cart.model.CartUiEvent.OnGoToCheckoutClick
 
 @Composable
 fun CartContent(
     modifier: Modifier,
-    items: List<CartItemUi>,
-    total: String,
+    cartProducts: List<CartProductUi>,
+    cartTotal: String,
+    anyApplicableDiscount: Boolean,
     onUiEvent: (CartUiEvent) -> Unit,
 ) {
     Column(
-        modifier = modifier.testTag(stringResource(R.string.cart_content_test_tag))
+        modifier = modifier
     ) {
-        val anyProductWithApplicableDiscount = items.any { product ->
-            product.discountInfo?.minQuantityReached == true
-        }
-
         LazyColumn(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -53,7 +49,7 @@ fun CartContent(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = stringResource(R.string.products_in_your_cart),
+                        text = stringResource(R.string.products_in_cart_header),
                         style = StoreTheme.titleTexts.title,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -61,25 +57,25 @@ fun CartContent(
             }
 
             items(
-                items = items,
+                items = cartProducts,
                 key = { item -> item.code }
             ) { item ->
-                CartItemCard(
+                CartProductCart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .animateItem(),
-                    item = item,
-                    onDeleteItemClick = {
-                        onUiEvent(CartUiEvent.OnDeleteItemFromCartClick(itemCode = item.code))
+                    product = item,
+                    onDeleteProductClick = {
+                        onUiEvent(CartUiEvent.OnDeleteProductFromCartClick(productCode = item.code))
                     }
                 )
             }
 
-            if (anyProductWithApplicableDiscount) {
+            if (anyApplicableDiscount) {
                 item {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(R.string.checkout_disclaimer),
+                        text = stringResource(R.string.checkout_discounts_disclaimer),
                         style = StoreTheme.captionTexts.captionSmall,
                         textAlign = TextAlign.End
                     )
@@ -101,21 +97,23 @@ fun CartContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = stringResource(R.string.total_price),
+                    text = stringResource(R.string.total_price_label),
                     style = StoreTheme.titleTexts.title,
                     fontWeight = FontWeight.SemiBold
                 )
 
                 val totalContentDescription = stringResource(R.string.total_price_content_description)
+                val totalText = if (anyApplicableDiscount) {
+                    stringResource(R.string.total_price_value_with_discounts, cartTotal)
+                } else {
+                    cartTotal
+                }
+
                 Text(
                     modifier = Modifier.semantics {
                         contentDescription = totalContentDescription
                     },
-                    text = if (anyProductWithApplicableDiscount) {
-                        "*$total"
-                    } else {
-                        total
-                    },
+                    text = totalText,
                     style = StoreTheme.titleTexts.title.copy(
                         fontWeight = FontWeight.SemiBold
                     )
@@ -127,7 +125,7 @@ fun CartContent(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 16.dp),
-                text = stringResource(R.string.checkout),
+                text = stringResource(R.string.checkout_button_text),
                 icon = Icons.Rounded.CreditCard,
                 onClick = {
                     onUiEvent(OnGoToCheckoutClick)
@@ -143,8 +141,9 @@ private fun CartContentPreview() {
     PreviewContainer {
         CartContent(
             modifier = Modifier.fillMaxSize(),
-            items = CartUi.mock.items,
-            total = CartUi.mock.total,
+            cartProducts = CartUi.mock.cartProducts,
+            cartTotal = CartUi.mock.totalPriceWithoutDiscounts,
+            anyApplicableDiscount = true,
             onUiEvent = {}
         )
     }
