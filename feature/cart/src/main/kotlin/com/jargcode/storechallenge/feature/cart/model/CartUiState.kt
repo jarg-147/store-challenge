@@ -1,6 +1,6 @@
 package com.jargcode.storechallenge.feature.cart.model
 
-import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi
+import com.jargcode.storechallenge.feature.cart.model.CartUi.CartProductUi
 
 sealed interface CartUiState {
 
@@ -9,8 +9,8 @@ sealed interface CartUiState {
     data object Error : CartUiState
 
     data class Success(
-        val items: List<CartItemUi>,
-        val totalPrice: String,
+        val cartProducts: List<CartProductUi>,
+        val totalPriceWithoutDiscounts: String,
     ) : CartUiState
 
 }

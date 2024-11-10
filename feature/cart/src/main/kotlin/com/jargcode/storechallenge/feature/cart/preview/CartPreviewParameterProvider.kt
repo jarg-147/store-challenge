@@ -10,8 +10,14 @@ class CartPreviewParameterProvider : PreviewParameterProvider<CartUiState> {
         get() = sequenceOf(
             CartUiState.Loading,
             CartUiState.Error,
-            CartUiState.Success(emptyList(), "0€"),
-            CartUiState.Success(CartUi.mock.items, CartUi.mock.total),
+            CartUiState.Success(
+                cartProducts = emptyList(),
+                totalPriceWithoutDiscounts = "0€"
+            ),
+            CartUiState.Success(
+                cartProducts = CartUi.mock.cartProducts,
+                totalPriceWithoutDiscounts = CartUi.mock.totalPriceWithoutDiscounts
+            ),
         )
 
 }

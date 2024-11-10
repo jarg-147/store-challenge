@@ -3,22 +3,23 @@ package com.jargcode.storechallenge.feature.cart.model
 import androidx.compose.runtime.Immutable
 import com.jargcode.storechallenge.core.domain.cart.model.Cart
 import com.jargcode.storechallenge.core.domain.cart.model.Cart.CartProduct
+import com.jargcode.storechallenge.core.domain.discounts.model.Discount
 import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FixedPrice
 import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FreeItem
 import com.jargcode.storechallenge.core.ui.utils.StringWrapper
 import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.cart.R
-import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi
-import com.jargcode.storechallenge.feature.cart.model.CartUi.CartItemUi.DiscountInfo
+import com.jargcode.storechallenge.feature.cart.model.CartUi.CartProductUi
+import com.jargcode.storechallenge.feature.cart.model.CartUi.CartProductUi.DiscountInfo
 
 @Immutable
 data class CartUi(
-    val items: List<CartItemUi>,
-    val total: String,
+    val cartProducts: List<CartProductUi>,
+    val totalPriceWithoutDiscounts: String,
 ) {
 
     @Immutable
-    data class CartItemUi(
+    data class CartProductUi(
         val code: String,
         val name: String,
         val price: String,
@@ -29,7 +30,7 @@ data class CartUi(
 
         @Immutable
         data class DiscountInfo(
-            val minQuantityReached: Boolean,
+            val isApplicable: Boolean,
             val text: StringWrapper,
         )
 
@@ -38,65 +39,42 @@ data class CartUi(
     companion object {
 
         val mock: CartUi = CartUi(
-            items = listOf(
-                CartItemUi(
+            cartProducts = listOf(
+                CartProductUi(
                     code = "VOUCHER",
                     name = "Cabify Voucher",
                     price = "5.00€",
                     imageUrl = "https://t4.ftcdn.net/jpg/02/35/86/91/360_F_235869128_VJOGMOTznY6PzXr2DXw0osnpvmCOlmm7.jpg",
                     quantity = 1,
                     discountInfo = DiscountInfo(
-                        minQuantityReached = false,
-                        text = StringWrapper(resId = R.string.discount_not_applied_free_item, args = arrayOf(1))
+                        isApplicable = false,
+                        text = StringWrapper(resId = R.string.discount_free_item_not_applied, args = arrayOf(1))
                     )
                 )
             ),
-            total = "5.00€"
+            totalPriceWithoutDiscounts = "5.00€"
         )
 
     }
 
 }
 
+// region Mappers
+
 fun Cart.toCartUi() = CartUi(
-    items = items.map { it.toCartItemUi() },
-    total = totalPriceWithoutDiscounts.toFormattedPrice(),
+    cartProducts = items.map { cartProduct -> cartProduct.toCartItemUi() },
+    totalPriceWithoutDiscounts = totalPriceWithoutDiscounts.toFormattedPrice(),
 )
 
-fun CartProduct.toCartItemUi(): CartItemUi {
-    val productDiscount = product.discount
-
-    val discountInfo = if (productDiscount != null) {
-        val text = if (productDiscount.minQuantity > quantity) {
-            val remainingQuantity = productDiscount.minQuantity - quantity
-            when (productDiscount) {
-                is FixedPrice -> {
-                    StringWrapper(
-                        resId = R.string.discount_not_applied_fixed_price,
-                        args = arrayOf(remainingQuantity, productDiscount.fixedPrice.toFormattedPrice())
-                    )
-                }
-
-                is FreeItem -> {
-                    StringWrapper(
-                        resId = R.string.discount_not_applied_free_item,
-                        args = arrayOf(remainingQuantity)
-                    )
-                }
-            }
-        } else {
-            StringWrapper(resId = R.string.discount_applied)
-        }
-
-        DiscountInfo(
-            minQuantityReached = quantity >= productDiscount.minQuantity,
-            text = text
+fun CartProduct.toCartItemUi(): CartProductUi {
+    val discountInfo = product.discount?.let { discount ->
+        getDiscountInfo(
+            discount = discount,
+            productQuantity = quantity
         )
-    } else {
-        null
     }
 
-    return CartItemUi(
+    return CartProductUi(
         code = product.code,
         name = product.name,
         price = product.price.toFormattedPrice(),
@@ -110,3 +88,36 @@ fun CartProduct.toCartItemUi(): CartItemUi {
         discountInfo = discountInfo
     )
 }
+
+fun getDiscountInfo(
+    discount: Discount,
+    productQuantity: Int,
+): DiscountInfo {
+    val text = if (discount.minQuantity > productQuantity) {
+        val remainingQuantity = discount.minQuantity - productQuantity
+        when (discount) {
+            is FixedPrice -> {
+                StringWrapper(
+                    resId = R.string.discount_fixed_price_not_applied,
+                    args = arrayOf(remainingQuantity, discount.fixedPrice.toFormattedPrice())
+                )
+            }
+
+            is FreeItem -> {
+                StringWrapper(
+                    resId = R.string.discount_free_item_not_applied,
+                    args = arrayOf(remainingQuantity)
+                )
+            }
+        }
+    } else {
+        StringWrapper(resId = R.string.discount_applied)
+    }
+
+    return DiscountInfo(
+        isApplicable = productQuantity >= discount.minQuantity,
+        text = text
+    )
+}
+
+// endregion Mappers

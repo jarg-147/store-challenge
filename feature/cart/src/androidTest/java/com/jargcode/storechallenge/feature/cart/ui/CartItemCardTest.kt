@@ -22,10 +22,10 @@ class CartItemCardTest {
 
         composeRule.setContent {
             StoreTheme {
-                CartItemCard(
+                CartProductCart(
                     modifier = Modifier.fillMaxWidth(),
-                    item = fakeProduct,
-                    onDeleteItemClick = {}
+                    product = fakeProduct,
+                    onDeleteProductClick = {}
                 )
             }
         }
@@ -58,10 +58,10 @@ class CartItemCardTest {
 
         composeRule.setContent {
             StoreTheme {
-                CartItemCard(
+                CartProductCart(
                     modifier = Modifier.fillMaxWidth(),
-                    item = fakeProduct,
-                    onDeleteItemClick = {}
+                    product = fakeProduct,
+                    onDeleteProductClick = {}
                 )
             }
         }
@@ -95,10 +95,10 @@ class CartItemCardTest {
 
         composeRule.setContent {
             StoreTheme {
-                CartItemCard(
+                CartProductCart(
                     modifier = Modifier.fillMaxWidth(),
-                    item = fakeProduct,
-                    onDeleteItemClick = {}
+                    product = fakeProduct,
+                    onDeleteProductClick = {}
                 )
             }
         }
@@ -131,10 +131,10 @@ class CartItemCardTest {
 
         composeRule.setContent {
             StoreTheme {
-                CartItemCard(
+                CartProductCart(
                     modifier = Modifier.fillMaxWidth(),
-                    item = fakeProduct,
-                    onDeleteItemClick = {}
+                    product = fakeProduct,
+                    onDeleteProductClick = {}
                 )
             }
         }
@@ -168,10 +168,10 @@ class CartItemCardTest {
 
         composeRule.setContent {
             StoreTheme {
-                CartItemCard(
+                CartProductCart(
                     modifier = Modifier.fillMaxWidth(),
-                    item = fakeProduct,
-                    onDeleteItemClick = {}
+                    product = fakeProduct,
+                    onDeleteProductClick = {}
                 )
             }
         }

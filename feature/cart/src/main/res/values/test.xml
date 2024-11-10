@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="cart_content_test_tag">cart_content_test_tag</string>
+    <string name="total_price_content_description">Cart total price</string>
+
+</resources>

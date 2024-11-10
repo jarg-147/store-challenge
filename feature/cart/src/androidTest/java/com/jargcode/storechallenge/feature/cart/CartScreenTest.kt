@@ -33,7 +33,7 @@ class CartScreenTest {
             )
         }
 
-        val loadingContentDescription = context.getString(DesignSystem.string.loading_indicator)
+        val loadingContentDescription = context.getString(DesignSystem.string.loading_indicator_content_description)
 
         composeTestRule
             .onNodeWithContentDescription(loadingContentDescription)
@@ -75,8 +75,8 @@ class CartScreenTest {
         composeTestRule.setContent {
             CartScreen(
                 uiState = CartUiState.Success(
-                    items = products,
-                    totalPrice = totalPrice.toFormattedPrice()
+                    cartProducts = products,
+                    totalPriceWithoutDiscounts = totalPrice.toFormattedPrice()
                 ),
                 onUiEvent = {},
                 snackbarState = SnackbarHostState()
@@ -119,8 +119,8 @@ class CartScreenTest {
         composeTestRule.setContent {
             CartScreen(
                 uiState = CartUiState.Success(
-                    items = products,
-                    totalPrice = totalPrice.toFormattedPrice()
+                    cartProducts = products,
+                    totalPriceWithoutDiscounts = totalPrice.toFormattedPrice()
                 ),
                 onUiEvent = {},
                 snackbarState = SnackbarHostState()
@@ -145,10 +145,42 @@ class CartScreenTest {
             }
         }
 
+        val discountsDisclaimer = context.getString(R.string.checkout_discounts_disclaimer)
+        lazyColumn
+            .onChildren()
+            .onLast()
+            .assertTextEquals(discountsDisclaimer)
+
         val totalContentDescription = context.getString(R.string.total_price_content_description)
+        val totalWithDiscountsText = context.getString(R.string.total_price_value_with_discounts, totalPrice.toFormattedPrice())
         composeTestRule
             .onNodeWithContentDescription(totalContentDescription, useUnmergedTree = true)
-            .assertTextEquals("*${totalPrice.toFormattedPrice()}")
+            .assertTextEquals(totalWithDiscountsText)
+    }
+
+    @Test
+    fun givenUiStateIsSuccess_whenCartIsEmpty_thenDisplaysEmptyView() {
+        composeTestRule.setContent {
+            CartScreen(
+                uiState = CartUiState.Success(
+                    cartProducts = emptyList(),
+                    totalPriceWithoutDiscounts = "0.00€"
+                ),
+                onUiEvent = {},
+                snackbarState = SnackbarHostState()
+            )
+        }
+
+        val emptyTitle = context.getString(R.string.cart_empty_title)
+        val emptyText = context.getString(R.string.cart_empty_text)
+
+        composeTestRule
+            .onNodeWithText(emptyTitle, useUnmergedTree = true)
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithText(emptyText, useUnmergedTree = true)
+            .assertIsDisplayed()
     }
 
 }
