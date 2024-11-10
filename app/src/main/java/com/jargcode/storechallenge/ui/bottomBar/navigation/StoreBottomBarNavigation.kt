@@ -10,7 +10,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object StoreBottomBar : Route
 
-fun NavGraphBuilder.storeBottomBar() {
+fun NavGraphBuilder.storeBottomBar(
+    onNavigate: (Route) -> Unit,
+) {
 
     composable<StoreBottomBar>(
         enterTransition = enterTransition,
@@ -19,7 +21,9 @@ fun NavGraphBuilder.storeBottomBar() {
         popExitTransition = popExitTransition
     ) {
 
-        StoreBottomBarRoute()
+        StoreBottomBarRoute(
+            onNavigate = onNavigate
+        )
 
     }
 
