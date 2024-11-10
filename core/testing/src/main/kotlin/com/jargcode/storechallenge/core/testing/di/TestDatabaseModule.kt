@@ -1,28 +1,31 @@
-package com.jargcode.storechallenge.core.database.di
+package com.jargcode.storechallenge.core.testing.di
 
 import android.content.Context
 import androidx.room.Room
 import com.jargcode.storechallenge.core.database.StoreDatabase
 import com.jargcode.storechallenge.core.database.dao.CartDao
+import com.jargcode.storechallenge.core.database.di.DatabaseModule
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [DatabaseModule::class],
+)
+internal object TestDatabaseModule {
 
     @Provides
     @Singleton
     fun providesStoreDatabase(
         @ApplicationContext context: Context,
-    ): StoreDatabase = Room.databaseBuilder(
+    ): StoreDatabase = Room.inMemoryDatabaseBuilder(
         context,
-        StoreDatabase::class.java,
-        "store-database",
+        StoreDatabase::class.java
     ).build()
 
     @Provides

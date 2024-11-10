@@ -57,9 +57,10 @@ room = "2.6.1"
 coil = "2.7.0"
 
 # Testing
-junit5 = "5.10.1"
+junit = "4.13.2"
 turbine = "1.2.0"
 assertk = "0.28.1"
+runner = "1.6.2"
 
 [libraries]
 
@@ -118,13 +119,14 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 # Testing
-junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
-junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
-junit5-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
-hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+junit = { module = "junit:junit", version.ref = "junit" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 
 # Gradle
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }

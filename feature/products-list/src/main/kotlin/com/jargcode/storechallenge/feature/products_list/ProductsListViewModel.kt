@@ -27,9 +27,6 @@ class ProductsListViewModel @Inject constructor(
     fun init() {
         viewModelScope.launch {
             getProductsListUseCase()
-                .onStart {
-                    _uiState.update { ProductsListUiState.Loading }
-                }
                 .map { products ->
                     products.map { product ->
                         product.toProductUi()
@@ -42,10 +39,10 @@ class ProductsListViewModel @Inject constructor(
         }
     }
 
-    fun onAddProductToCartClick(productId: String) {
+    fun onAddProductToCartClick(productCode: String) {
         viewModelScope.launch {
             try {
-                cartRepository.addProduct(productId = productId)
+                cartRepository.addProduct(productCode = productCode)
                 _vmEvent.send(ProductsListVMEvent.ShowProductAddedToCartSuccess)
             } catch (ex: Exception) {
                 if (ex is CancellationException) throw ex
@@ -55,7 +52,10 @@ class ProductsListViewModel @Inject constructor(
     }
 
     fun onRetryClick() {
-        init()
+        viewModelScope.launch {
+            _uiState.update { ProductsListUiState.Loading }
+            init()
+        }
     }
 
 }

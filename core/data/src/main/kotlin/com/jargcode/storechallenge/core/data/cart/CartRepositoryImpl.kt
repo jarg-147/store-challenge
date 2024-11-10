@@ -12,8 +12,8 @@ class CartRepositoryImpl @Inject constructor(
     private val cartDao: CartDao,
 ) : CartRepository {
 
-    override suspend fun addProduct(productId: String) {
-        cartDao.addProductUnitToCart(productId = productId)
+    override suspend fun addProduct(productCode: String) {
+        cartDao.addProductUnitToCart(productCode = productCode)
     }
 
     override fun getCartCount(): Flow<Int> = cartDao.getCartCount()

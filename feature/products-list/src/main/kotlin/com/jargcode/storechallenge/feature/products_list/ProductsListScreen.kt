@@ -1,5 +1,6 @@
 package com.jargcode.storechallenge.feature.products_list
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -49,7 +50,7 @@ fun ProductsListRoute(
     val uiEvent = rememberUiEvent<ProductsListUiEvent> { action ->
         when (action) {
             is OnAddProductToCartClick -> {
-                viewModel.onAddProductToCartClick(productId = action.productId)
+                viewModel.onAddProductToCartClick(productCode = action.productId)
             }
 
             is OnRetryClick -> {
@@ -97,7 +98,8 @@ fun ProductsListRoute(
 }
 
 @Composable
-private fun ProductsListScreen(
+@VisibleForTesting
+internal fun ProductsListScreen(
     uiState: ProductsListUiState,
     onUiEvent: (ProductsListUiEvent) -> Unit,
     snackbarState: SnackbarHostState,

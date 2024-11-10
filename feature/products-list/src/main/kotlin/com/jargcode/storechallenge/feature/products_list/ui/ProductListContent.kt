@@ -5,9 +5,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.jargcode.storechallenge.core.designsystem.preview.PreviewContainer
 import com.jargcode.storechallenge.core.designsystem.preview.WidgetPreview
+import com.jargcode.storechallenge.feature.products_list.R
 import com.jargcode.storechallenge.feature.products_list.model.ProductUi
 import com.jargcode.storechallenge.feature.products_list.model.ProductsListUiEvent
 import com.jargcode.storechallenge.feature.products_list.model.ProductsListUiEvent.OnAddProductToCartClick
@@ -19,7 +22,7 @@ fun ProductListContent(
     onUiEvent: (ProductsListUiEvent) -> Unit,
 ) {
     LazyColumn(
-        modifier = modifier,
+        modifier = modifier.testTag(stringResource(R.string.product_list_content_test_tag)),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp)
     ) {

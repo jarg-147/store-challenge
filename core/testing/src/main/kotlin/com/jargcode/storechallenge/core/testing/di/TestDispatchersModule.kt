@@ -2,7 +2,7 @@ package com.jargcode.storechallenge.core.testing.di
 
 import com.jargcode.storechallenge.core.common.di.DispatchersModule
 import com.jargcode.storechallenge.core.domain.common.coroutines.DispatcherProvider
-import com.jargcode.storechallenge.core.testing.TestDispatchers
+import com.jargcode.storechallenge.core.testing.coroutines.TestDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

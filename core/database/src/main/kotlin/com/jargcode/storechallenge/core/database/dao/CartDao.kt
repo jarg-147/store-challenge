@@ -19,14 +19,14 @@ interface CartDao {
     @Query("SELECT * FROM cart_item WHERE product_code = :id")
     suspend fun getCartItem(id: String): List<CartItemEntity>
 
-    suspend fun addProductUnitToCart(productId: String) {
-        val item = getCartItem(productId).firstOrNull()
+    suspend fun addProductUnitToCart(productCode: String) {
+        val item = getCartItem(productCode).firstOrNull()
         if (item != null) {
             val currentProductQuantity = item.quantity
             val newProductQuantity = currentProductQuantity + 1
             upsertProduct(item.copy(quantity = newProductQuantity))
         } else {
-            upsertProduct(CartItemEntity(productId, 1))
+            upsertProduct(CartItemEntity(productCode, 1))
         }
     }
 
