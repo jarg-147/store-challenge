@@ -6,6 +6,8 @@ sealed interface ProductsListUiState {
 
     data object Error : ProductsListUiState
 
-    data class Success(val products: List<ProductUi>) : ProductsListUiState
+    data class Success(
+        val products: List<ProductUi>,
+    ) : ProductsListUiState
 
 }

@@ -19,17 +19,20 @@ data class ProductUi(
 
     companion object {
 
-        val mock: ProductUi = ProductUi(
-            code = "VOUCHER",
-            name = "Cabify Voucher",
-            price = "5.00€",
-            imageUrl = "https://t4.ftcdn.net/jpg/02/35/86/91/360_F_235869128_VJOGMOTznY6PzXr2DXw0osnpvmCOlmm7.jpg",
-            discountText = StringWrapper(text = "Buy 2, get 1 free")
-        )
+        val mock: ProductUi
+            get() = ProductUi(
+                code = "VOUCHER",
+                name = "Cabify Voucher",
+                price = "5.00€",
+                imageUrl = "https://t4.ftcdn.net/jpg/02/35/86/91/360_F_235869128_VJOGMOTznY6PzXr2DXw0osnpvmCOlmm7.jpg",
+                discountText = StringWrapper(text = "Buy 2, get 1 free")
+            )
 
     }
 
 }
+
+// region Mappers
 
 fun Product.toProductUi() = ProductUi(
     code = code,
@@ -41,11 +44,23 @@ fun Product.toProductUi() = ProductUi(
         code.equals("MUG", ignoreCase = true) -> "https://img.freepik.com/premium-photo/purple-coffee-mug-with-white-rim-plain-surface-generative-ai_900775-28399.jpg"
         else -> null
     },
-    discountText = run {
-        when (val productDiscount = discount) {
-            is FixedPrice -> StringWrapper(resId = R.string.when_buying_or_more_each, args = arrayOf(productDiscount.minQuantity, productDiscount.fixedPrice.toFormattedPrice()))
-            is FreeItem -> StringWrapper(resId = R.string.buy_and_get_free, args = arrayOf(productDiscount.minQuantity))
-            else -> null
+    discountText = when (val productDiscount = discount) {
+        is FixedPrice -> {
+            StringWrapper(
+                resId = R.string.discount_fixed_price_description,
+                args = arrayOf(productDiscount.minQuantity, productDiscount.fixedPrice.toFormattedPrice())
+            )
         }
+
+        is FreeItem -> {
+            StringWrapper(
+                resId = R.string.discount_free_item_description,
+                args = arrayOf(productDiscount.minQuantity)
+            )
+        }
+
+        else -> null
     }
 )
+
+// endregion Mappers

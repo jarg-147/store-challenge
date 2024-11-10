@@ -95,7 +95,7 @@ fun ProductCard(
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 16.dp),
-                text = stringResource(R.string.add_to_cart),
+                text = stringResource(R.string.product_card_add_to_cart_button),
                 onClick = onAddToCartClick
             )
         }

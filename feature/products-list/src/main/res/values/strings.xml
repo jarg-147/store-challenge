@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="products_list_title">Cabify Store Products</string>
-    <string name="when_buying_or_more_each">When buying %1$d or more, %2$s each</string>
-    <string name="buy_and_get_free">Buy %1$d and get 1 free</string>
-    <string name="add_to_cart">Add to cart</string>
+
+    <string name="products_list_toolbar_title">Cabify Store Products</string>
+    <string name="discount_fixed_price_description">When buying %1$d or more, %2$s each</string>
+    <string name="discount_free_item_description">Buy %1$d and get 1 free</string>
+    <string name="product_card_add_to_cart_button">Add to cart</string>
 
     <string name="empty_placeholder_title">No products found</string>
     <string name="empty_placeholder_text">Looks like Cabify store it\'s out of stock right now, we\'ll be back soon</string>
@@ -12,8 +13,7 @@
     <string name="error_placeholder_text">Check your internet connection or try again</string>
     <string name="error_placeholder_button">Retry</string>
 
-    <string name="product_added_to_cart_success">Product added to cart</string>
-    <string name="product_added_to_cart_error">Error adding product to cart</string>
+    <string name="snackbar_product_added_to_cart_success">Product added to cart</string>
+    <string name="snackbar_product_added_to_cart_error">Error adding product to cart</string>
 
-    <string name="product_list_content_test_tag">products_list_test_tag</string>
 </resources>

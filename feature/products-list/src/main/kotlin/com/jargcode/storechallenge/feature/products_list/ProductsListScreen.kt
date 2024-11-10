@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -44,6 +45,7 @@ fun ProductsListRoute(
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarState = remember { SnackbarHostState() }
 
@@ -71,7 +73,7 @@ fun ProductsListRoute(
                 scope.coroutineContext.cancelChildren()
                 scope.launch {
                     snackbarState.showSnackbar(
-                        message = context.getString(R.string.product_added_to_cart_error),
+                        message = context.getString(R.string.snackbar_product_added_to_cart_error),
                         withDismissAction = true
                     )
                 }
@@ -81,7 +83,7 @@ fun ProductsListRoute(
                 scope.coroutineContext.cancelChildren()
                 scope.launch {
                     snackbarState.showSnackbar(
-                        message = context.getString(R.string.product_added_to_cart_success),
+                        message = context.getString(R.string.snackbar_product_added_to_cart_success),
                         withDismissAction = true
                     )
                 }
@@ -110,7 +112,7 @@ internal fun ProductsListScreen(
         topBar = {
             Toolbar(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.products_list_title)
+                text = stringResource(id = R.string.products_list_toolbar_title)
             )
         },
         containerColor = StoreTheme.backgroundColors.backgroundGrey,
@@ -154,7 +156,9 @@ internal fun ProductsListScreen(
                     )
                 } else {
                     ProductListContent(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .testTag(stringResource(R.string.product_list_content_test_tag)),
                         products = products,
                         onUiEvent = onUiEvent,
                     )
