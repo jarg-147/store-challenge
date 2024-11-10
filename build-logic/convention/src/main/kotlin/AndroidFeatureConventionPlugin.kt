@@ -18,7 +18,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
         dependencies {
             // Modules
             add("implementation", project(":core:domain"))
-            add("implementation", project(":core:domain"))
             add("implementation", project(":core:ui"))
             add("implementation", project(":core:testing"))
 
@@ -37,7 +36,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             add("testImplementation", libs.library("turbine"))
             add("testImplementation", libs.library("assertk"))
             add("testImplementation", libs.library("kotlinx.coroutines.test"))
-            add("testImplementation", libs.library("hilt.android.testing"))
             add("androidTestImplementation", libs.library("kotlinx.coroutines.test"))
             add("androidTestImplementation", libs.library("hilt.android.testing"))
             add("androidTestImplementation", libs.library("compose.ui.test.junit4"))
