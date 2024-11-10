@@ -4,7 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import com.jargcode.storechallenge.feature.products_list.data.getFakeProductsUi
+import com.jargcode.storechallenge.feature.products_list.data.productsUi
 import com.jargcode.storechallenge.feature.products_list.model.ProductsListUiState
 import org.junit.*
 import com.jargcode.storechallenge.core.designsystem.R as DesignSystemRes
@@ -22,7 +22,7 @@ class ProductsListScreenTest {
     }
 
     @Test
-    fun loadingIndicatorIsDisplayedWhenLoadingState() {
+    fun givenUiStateIsLoading_thenDisplayLoadingIndicator() {
         composeTestRule.setContent {
             ProductsListScreen(
                 uiState = ProductsListUiState.Loading,
@@ -31,7 +31,7 @@ class ProductsListScreenTest {
             )
         }
 
-        val loadingContentDescription = context.getString(DesignSystemRes.string.loading_indicator)
+        val loadingContentDescription = context.getString(DesignSystemRes.string.loading_indicator_content_description)
 
         composeTestRule
             .onNodeWithContentDescription(loadingContentDescription)
@@ -39,7 +39,7 @@ class ProductsListScreenTest {
     }
 
     @Test
-    fun errorViewIsDisplayedWhenErrorState() {
+    fun givenUiStateIsError_thenDisplayErrorView() {
         composeTestRule.setContent {
             ProductsListScreen(
                 uiState = ProductsListUiState.Error,
@@ -66,12 +66,12 @@ class ProductsListScreenTest {
     }
 
     @Test
-    fun successContentIsDisplayedWhenSuccessState() {
-        val fakeProducts = getFakeProductsUi()
+    fun givenUiStateIsSuccess_whenHasProducts_thenDisplaysProducts() {
+        val products = productsUi()
         composeTestRule.setContent {
             ProductsListScreen(
                 uiState = ProductsListUiState.Success(
-                    products = fakeProducts
+                    products = products
                 ),
                 onUiEvent = {},
                 snackbarState = SnackbarHostState()
@@ -83,12 +83,36 @@ class ProductsListScreenTest {
         val lazyColumn = composeTestRule
             .onNodeWithTag(productsListContentTestTag, useUnmergedTree = true)
 
-        // First product
-        fakeProducts.forEach { productUi ->
+        products.forEach { productUi ->
             lazyColumn
                 .performScrollToNode(hasText(productUi.name))
                 .assertIsDisplayed()
         }
+    }
+
+    @Test
+    fun givenUiStateIsSuccess_whenNoProducts_thenDisplaysEmptyView() {
+        composeTestRule.setContent {
+            ProductsListScreen(
+                uiState = ProductsListUiState.Success(
+                    products = emptyList()
+                ),
+                onUiEvent = {},
+                snackbarState = SnackbarHostState()
+            )
+        }
+
+        val emptyTitle = context.getString(R.string.empty_placeholder_title)
+        val emptyText = context.getString(R.string.empty_placeholder_text)
+
+        composeTestRule
+            .onNodeWithText(emptyTitle, useUnmergedTree = true)
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithText(emptyText, useUnmergedTree = true)
+            .assertIsDisplayed()
+
     }
 
 }

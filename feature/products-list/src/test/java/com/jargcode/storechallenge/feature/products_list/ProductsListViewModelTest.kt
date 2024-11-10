@@ -9,7 +9,7 @@ import com.jargcode.storechallenge.core.testing.cart.FakeCartRepository
 import com.jargcode.storechallenge.core.testing.coroutines.MainCoroutineRule
 import com.jargcode.storechallenge.core.testing.discounts.FakeDiscountsRepository
 import com.jargcode.storechallenge.core.testing.products.FakeProductsRepository
-import com.jargcode.storechallenge.core.testing.products.getFakeProducts
+import com.jargcode.storechallenge.core.testing.products.products
 import com.jargcode.storechallenge.feature.products_list.model.ProductsListUiState
 import com.jargcode.storechallenge.feature.products_list.model.toProductUi
 import kotlinx.coroutines.test.runTest
@@ -19,8 +19,10 @@ class ProductsListViewModelTest {
 
     private lateinit var productsRepository: FakeProductsRepository
     private lateinit var discountsRepository: FakeDiscountsRepository
-    private lateinit var getProductsListUseCase: GetProductsListUseCase
     private lateinit var cartRepository: FakeCartRepository
+
+    private lateinit var getProductsListUseCase: GetProductsListUseCase
+
     private lateinit var viewModel: ProductsListViewModel
 
     @get:Rule
@@ -31,10 +33,12 @@ class ProductsListViewModelTest {
         productsRepository = FakeProductsRepository()
         discountsRepository = FakeDiscountsRepository()
         cartRepository = FakeCartRepository()
+
         getProductsListUseCase = GetProductsListUseCase(
             productsRepository = productsRepository,
             discountsRepository = discountsRepository
         )
+
         viewModel = ProductsListViewModel(
             getProductsListUseCase = getProductsListUseCase,
             cartRepository = cartRepository
@@ -45,8 +49,8 @@ class ProductsListViewModelTest {
     fun `given user is in products list, when viewmodel init is called, then products are loaded`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
-            productsRepository.setProducts(fakeProducts)
+            val productsList = products()
+            productsRepository.setProducts(productsList)
 
             val loadingEmission = awaitItem()
             assertThat(loadingEmission).isEqualTo(ProductsListUiState.Loading)
@@ -56,9 +60,8 @@ class ProductsListViewModelTest {
 
             // THEN
             val successEmission = awaitItem()
-            val mappedFakeProducts = fakeProducts.map { it.toProductUi() }
+            val mappedFakeProducts = productsList.map { it.toProductUi() }
             assertThat(successEmission).isEqualTo(ProductsListUiState.Success(mappedFakeProducts))
-
         }
     }
 
@@ -66,20 +69,19 @@ class ProductsListViewModelTest {
     fun `given user is in products list, when viewmodel init returns error, then error is displayed`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
-            productsRepository.setProducts(fakeProducts)
+            val productsList = products()
+            productsRepository.setProducts(productsList)
 
             val loadingEmission = awaitItem()
             assertThat(loadingEmission).isEqualTo(ProductsListUiState.Loading)
 
             // WHEN
-            productsRepository.shouldReturnError = true
+            productsRepository.getProductsThrowError = true
             viewModel.init()
 
             // THEN
             val errorEmission = awaitItem()
             assertThat(errorEmission).isEqualTo(ProductsListUiState.Error)
-
         }
     }
 
@@ -87,20 +89,20 @@ class ProductsListViewModelTest {
     fun `given state is error, when user clicks retry, products are loaded`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
-            productsRepository.setProducts(fakeProducts)
+            val productsList = products()
+            productsRepository.setProducts(productsList)
 
             val loadingEmission = awaitItem()
             assertThat(loadingEmission).isEqualTo(ProductsListUiState.Loading)
 
-            productsRepository.shouldReturnError = true
+            productsRepository.getProductsThrowError = true
             viewModel.init()
 
             val errorEmission = awaitItem()
             assertThat(errorEmission).isEqualTo(ProductsListUiState.Error)
 
             // WHEN
-            productsRepository.shouldReturnError = false
+            productsRepository.getProductsThrowError = false
             viewModel.onRetryClick()
 
             // THEN
@@ -108,7 +110,7 @@ class ProductsListViewModelTest {
             assertThat(reloadingEmission).isEqualTo(ProductsListUiState.Loading)
 
             val successEmission = awaitItem()
-            val mappedFakeProducts = fakeProducts.map { it.toProductUi() }
+            val mappedFakeProducts = productsList.map { it.toProductUi() }
             assertThat(successEmission).isEqualTo(ProductsListUiState.Success(mappedFakeProducts))
         }
     }
@@ -117,8 +119,8 @@ class ProductsListViewModelTest {
     fun `given product list is loaded, when user clicks add to cart in product, then product is added to cart`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
-            productsRepository.setProducts(fakeProducts)
+            val productsList = products()
+            productsRepository.setProducts(productsList)
 
             val loadingEmission = awaitItem()
             assertThat(loadingEmission).isEqualTo(ProductsListUiState.Loading)
@@ -126,7 +128,7 @@ class ProductsListViewModelTest {
             viewModel.init()
 
             val successEmission = awaitItem()
-            val mappedFakeProducts = fakeProducts.map { it.toProductUi() }
+            val mappedFakeProducts = productsList.map { it.toProductUi() }
             assertThat(successEmission).isEqualTo(ProductsListUiState.Success(mappedFakeProducts))
 
             cartRepository.getUserCartItems().test {
@@ -147,8 +149,8 @@ class ProductsListViewModelTest {
     fun `given product list is loaded, when add product to cart fails, then error is catch`() = runTest {
         viewModel.uiState.test {
             // GIVEN
-            val fakeProducts = getFakeProducts()
-            productsRepository.setProducts(fakeProducts)
+            val productsList = products()
+            productsRepository.setProducts(productsList)
 
             val loadingEmission = awaitItem()
             assertThat(loadingEmission).isEqualTo(ProductsListUiState.Loading)
@@ -156,7 +158,7 @@ class ProductsListViewModelTest {
             viewModel.init()
 
             val successEmission = awaitItem()
-            val mappedFakeProducts = fakeProducts.map { it.toProductUi() }
+            val mappedFakeProducts = productsList.map { it.toProductUi() }
             assertThat(successEmission).isEqualTo(ProductsListUiState.Success(mappedFakeProducts))
 
             cartRepository.getUserCartItems().test {
