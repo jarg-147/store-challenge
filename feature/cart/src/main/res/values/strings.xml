@@ -21,4 +21,7 @@
 
     <string name="delete_product_from_cart_success">Product removed from your cart</string>
     <string name="delete_product_from_cart_error">Product could not be removed from your cart</string>
+
+    <string name="cart_content_test_tag">cart_content_test_tag</string>
+    <string name="total_price_content_description">Cart total price</string>
 </resources>
