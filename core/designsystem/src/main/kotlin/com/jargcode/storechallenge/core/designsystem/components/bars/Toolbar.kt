@@ -2,8 +2,9 @@ package com.jargcode.storechallenge.core.designsystem.components.bars
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBackIosNew
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,11 +24,13 @@ fun Toolbar(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = StoreTheme.backgroundColors.backgroundWhite,
+    onBackIconClick: (() -> Unit)? = null,
 ) {
     ToolbarWidget(
         modifier = modifier,
         text = text,
         backgroundColor = backgroundColor,
+        onBackIconClick = onBackIconClick
     )
 }
 
@@ -36,6 +39,7 @@ private fun ToolbarWidget(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = StoreTheme.backgroundColors.backgroundWhite,
+    onBackIconClick: (() -> Unit)? = null,
 ) {
     Box(
         modifier = modifier
@@ -45,15 +49,36 @@ private fun ToolbarWidget(
             .height(56.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(
+        Row(
             modifier = Modifier.fillMaxWidth(),
-            text = text,
-            style = StoreTheme.titleTexts.title,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
-        )
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (onBackIconClick != null) {
+                IconButton(
+                    onClick = onBackIconClick,
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.ArrowBackIosNew,
+                        contentDescription = null,
+                        tint = StoreTheme.iconColors.moradul
+                    )
+                }
+            }
+
+            Text(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                text = text,
+                style = StoreTheme.titleTexts.title,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            if (onBackIconClick != null) {
+                Spacer(modifier = Modifier.width(48.dp))
+            }
+        }
 
         HorizontalDivider(
             modifier = Modifier
@@ -74,6 +99,12 @@ private fun ToolbarPreview() {
         Toolbar(
             modifier = Modifier.fillMaxWidth(),
             text = "Toolbar text"
+        )
+
+        Toolbar(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Toolbar text",
+            onBackIconClick = {}
         )
     }
 }
