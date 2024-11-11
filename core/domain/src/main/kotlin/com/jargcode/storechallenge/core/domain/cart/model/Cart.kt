@@ -3,7 +3,7 @@ package com.jargcode.storechallenge.core.domain.cart.model
 import com.jargcode.storechallenge.core.domain.products.model.Product
 
 data class Cart(
-    val items: List<CartProduct>,
+    val cartProducts: List<CartProduct>,
     val totalPriceWithoutDiscounts: Double,
 ) {
 

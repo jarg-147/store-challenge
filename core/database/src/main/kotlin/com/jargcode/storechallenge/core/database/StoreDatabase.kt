@@ -3,11 +3,11 @@ package com.jargcode.storechallenge.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.jargcode.storechallenge.core.database.dao.CartDao
-import com.jargcode.storechallenge.core.database.model.CartItemEntity
+import com.jargcode.storechallenge.core.database.model.CartProductEntity
 
 @Database(
     entities = [
-        CartItemEntity::class
+        CartProductEntity::class
     ],
     version = 1
 )

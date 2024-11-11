@@ -10,18 +10,18 @@ import com.jargcode.storechallenge.core.ui.utils.StringWrapper
 import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.checkout.R
 import com.jargcode.storechallenge.feature.checkout.model.CheckoutSummaryUi.AppliedDiscountUi
-import com.jargcode.storechallenge.feature.checkout.model.CheckoutSummaryUi.CheckoutItemUi
+import com.jargcode.storechallenge.feature.checkout.model.CheckoutSummaryUi.CheckoutProductUi
 
 @Immutable
 data class CheckoutSummaryUi(
-    val items: List<CheckoutItemUi>,
+    val products: List<CheckoutProductUi>,
     val subtotal: String,
     val appliedDiscounts: List<AppliedDiscountUi>,
     val total: String,
 ) {
 
     @Immutable
-    data class CheckoutItemUi(
+    data class CheckoutProductUi(
         val code: String,
         val name: String,
         val pricePerUnit: String,
@@ -32,7 +32,7 @@ data class CheckoutSummaryUi(
     @Immutable
     data class AppliedDiscountUi(
         val discountInfo: StringWrapper,
-        val totalDiscount: String,
+        val totalDiscounted: String,
         val timesApplied: Int,
     )
 
@@ -40,8 +40,8 @@ data class CheckoutSummaryUi(
 
         val mock: CheckoutSummaryUi
             get() = CheckoutSummaryUi(
-                items = listOf(
-                    CheckoutItemUi(
+                products = listOf(
+                    CheckoutProductUi(
                         code = "VOUCHER",
                         name = "Cabify Voucher",
                         pricePerUnit = "5.00€",
@@ -56,7 +56,7 @@ data class CheckoutSummaryUi(
                             resId = R.string.buy_and_get_free_discount_info,
                             args = arrayOf(2, "Cabify Voucher")
                         ),
-                        totalDiscount = "5.00€",
+                        totalDiscounted = "5.00€",
                         timesApplied = 1
                     )
                 ),
@@ -67,14 +67,16 @@ data class CheckoutSummaryUi(
 
 }
 
+// region Mappers
+
 fun CheckoutSummary.toCheckoutSummaryUi() = CheckoutSummaryUi(
-    items = checkoutItems.map { item -> item.toCheckoutItemUi() },
+    products = checkoutProducts.map { item -> item.toCheckoutItemUi() },
     subtotal = subtotal.toFormattedPrice(),
     appliedDiscounts = appliedDiscounts.map { appliedDiscount -> appliedDiscount.toAppliedDiscountUi() },
     total = total.toFormattedPrice()
 )
 
-fun CartProduct.toCheckoutItemUi() = CheckoutItemUi(
+fun CartProduct.toCheckoutItemUi() = CheckoutProductUi(
     code = product.code,
     name = product.name,
     pricePerUnit = product.price.toFormattedPrice(),
@@ -98,7 +100,8 @@ fun AppliedDiscount.toAppliedDiscountUi() = AppliedDiscountUi(
             )
         }
     },
-    totalDiscount = totalDiscount.toFormattedPrice(),
+    totalDiscounted = totalDiscounted.toFormattedPrice(),
     timesApplied = timesApplied
-
 )
+
+// endregion Mappers

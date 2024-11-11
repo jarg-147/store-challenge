@@ -62,7 +62,7 @@ data class CartUi(
 // region Mappers
 
 fun Cart.toCartUi() = CartUi(
-    cartProducts = items.map { cartProduct -> cartProduct.toCartItemUi() },
+    cartProducts = cartProducts.map { cartProduct -> cartProduct.toCartItemUi() },
     totalPriceWithoutDiscounts = totalPriceWithoutDiscounts.toFormattedPrice(),
 )
 

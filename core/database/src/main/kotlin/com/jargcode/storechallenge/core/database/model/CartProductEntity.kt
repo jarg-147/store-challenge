@@ -1,12 +1,12 @@
 package com.jargcode.storechallenge.core.database.model
 
 import androidx.room.*
-import com.jargcode.storechallenge.core.domain.cart.model.SavedCartItem
+import com.jargcode.storechallenge.core.domain.cart.model.SavedCartProduct
 
 @Entity(
-    tableName = "cart_item",
+    tableName = "cart_product",
 )
-data class CartItemEntity(
+data class CartProductEntity(
     @PrimaryKey
     @ColumnInfo(name = "product_code")
     val productCode: String,
@@ -14,7 +14,7 @@ data class CartItemEntity(
     val quantity: Int,
 )
 
-fun CartItemEntity.toSavedCartItem() = SavedCartItem(
+fun CartProductEntity.toSavedCartProduct() = SavedCartProduct(
     productCode = productCode,
     quantity = quantity,
 )

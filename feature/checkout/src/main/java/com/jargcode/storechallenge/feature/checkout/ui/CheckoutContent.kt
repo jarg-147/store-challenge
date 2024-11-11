@@ -18,14 +18,14 @@ import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 import com.jargcode.storechallenge.feature.checkout.R
 import com.jargcode.storechallenge.feature.checkout.model.CheckoutSummaryUi
 import com.jargcode.storechallenge.feature.checkout.model.CheckoutSummaryUi.AppliedDiscountUi
-import com.jargcode.storechallenge.feature.checkout.model.CheckoutSummaryUi.CheckoutItemUi
+import com.jargcode.storechallenge.feature.checkout.model.CheckoutSummaryUi.CheckoutProductUi
 import com.jargcode.storechallenge.feature.checkout.model.CheckoutUiEvent
 import com.jargcode.storechallenge.feature.checkout.model.CheckoutUiEvent.OnPayClick
 
 @Composable
 fun CheckoutContent(
     modifier: Modifier = Modifier,
-    items: List<CheckoutItemUi>,
+    products: List<CheckoutProductUi>,
     subtotal: String,
     appliedDiscounts: List<AppliedDiscountUi>,
     total: String,
@@ -70,7 +70,7 @@ fun CheckoutContent(
             }
 
             items(
-                items = items,
+                items = products,
                 key = { item -> item.code }
             ) { item ->
                 CheckoutItemRow(
@@ -117,7 +117,7 @@ fun CheckoutContent(
                             .fillMaxWidth()
                             .padding(start = 8.dp),
                         name = discount.discountInfo.value,
-                        value = "-${discount.totalDiscount}",
+                        value = "-${discount.totalDiscounted}",
                         description = "x ${discount.timesApplied}"
                     )
                 }
@@ -167,7 +167,7 @@ private fun CheckoutContentWithDiscountsPreview() {
     PreviewContainer {
         CheckoutContent(
             modifier = Modifier.fillMaxSize(),
-            items = CheckoutSummaryUi.mock.items,
+            products = CheckoutSummaryUi.mock.products,
             subtotal = CheckoutSummaryUi.mock.subtotal,
             appliedDiscounts = CheckoutSummaryUi.mock.appliedDiscounts,
             total = CheckoutSummaryUi.mock.total,
@@ -182,7 +182,7 @@ private fun CheckoutContentWithoutDiscountsPreview() {
     PreviewContainer {
         CheckoutContent(
             modifier = Modifier.fillMaxSize(),
-            items = CheckoutSummaryUi.mock.items,
+            products = CheckoutSummaryUi.mock.products,
             subtotal = CheckoutSummaryUi.mock.subtotal,
             appliedDiscounts = emptyList(),
             total = "10.00€",

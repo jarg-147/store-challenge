@@ -11,7 +11,7 @@ class CheckoutPreviewParameterProvider : PreviewParameterProvider<CheckoutUiStat
             CheckoutUiState.Loading,
             CheckoutUiState.Error,
             CheckoutUiState.Success(
-                items = CheckoutSummaryUi.mock.items,
+                products = CheckoutSummaryUi.mock.products,
                 subtotal = CheckoutSummaryUi.mock.subtotal,
                 appliedDiscounts = CheckoutSummaryUi.mock.appliedDiscounts,
                 total = CheckoutSummaryUi.mock.total,
