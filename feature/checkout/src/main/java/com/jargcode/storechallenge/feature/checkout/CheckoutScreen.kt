@@ -1,5 +1,6 @@
 package com.jargcode.storechallenge.feature.checkout
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -7,6 +8,7 @@ import androidx.compose.material.icons.rounded.ErrorOutline
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -63,7 +65,8 @@ fun CheckoutRoute(
 }
 
 @Composable
-private fun CheckoutScreen(
+@VisibleForTesting
+internal fun CheckoutScreen(
     uiState: CheckoutUiState,
     onUiEvent: (CheckoutUiEvent) -> Unit,
 ) {
@@ -107,8 +110,10 @@ private fun CheckoutScreen(
 
             is Success -> {
                 CheckoutContent(
-                    modifier = Modifier.fillMaxSize(),
-                    items = uiState.items,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .testTag(stringResource(R.string.checkout_content_test_tag)),
+                    products = uiState.products,
                     subtotal = uiState.subtotal,
                     appliedDiscounts = uiState.appliedDiscounts,
                     total = uiState.total,

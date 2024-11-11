@@ -32,7 +32,7 @@ class CheckoutViewModel @Inject constructor(
                 }.collect { summary ->
                     _uiState.update {
                         CheckoutUiState.Success(
-                            items = summary.items,
+                            products = summary.products,
                             subtotal = summary.subtotal,
                             appliedDiscounts = summary.appliedDiscounts,
                             total = summary.total

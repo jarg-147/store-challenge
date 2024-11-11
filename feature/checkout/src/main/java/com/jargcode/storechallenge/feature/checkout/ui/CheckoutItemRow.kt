@@ -62,9 +62,9 @@ private fun CheckoutItemRowPreview() {
     PreviewContainer {
         CheckoutItemRow(
             modifier = Modifier.fillMaxWidth(),
-            name = CheckoutSummaryUi.mock.items.first().name,
-            value = CheckoutSummaryUi.mock.items.first().totalPrice,
-            description = CheckoutSummaryUi.mock.items.first().pricePerUnit,
+            name = CheckoutSummaryUi.mock.products.first().name,
+            value = CheckoutSummaryUi.mock.products.first().totalPrice,
+            description = CheckoutSummaryUi.mock.products.first().pricePerUnit,
 
             )
     }
