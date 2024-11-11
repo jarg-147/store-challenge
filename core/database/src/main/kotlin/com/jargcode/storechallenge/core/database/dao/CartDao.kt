@@ -1,36 +1,36 @@
 package com.jargcode.storechallenge.core.database.dao
 
 import androidx.room.*
-import com.jargcode.storechallenge.core.database.model.CartItemEntity
+import com.jargcode.storechallenge.core.database.model.CartProductEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CartDao {
 
-    @Query("SELECT * FROM cart_item")
-    fun getUserCartItems(): Flow<List<CartItemEntity>>
+    @Query("SELECT * FROM cart_product")
+    fun getCartProducts(): Flow<List<CartProductEntity>>
 
-    @Query("SELECT SUM(quantity) FROM cart_item")
+    @Query("SELECT SUM(quantity) FROM cart_product")
     fun getCartCount(): Flow<Int>
 
+    @Query("SELECT * FROM cart_product WHERE product_code = :id")
+    suspend fun getCartProduct(id: String): List<CartProductEntity>
+
     @Upsert
-    suspend fun upsertProduct(entity: CartItemEntity)
+    suspend fun upsertProduct(entity: CartProductEntity)
 
-    @Query("SELECT * FROM cart_item WHERE product_code = :id")
-    suspend fun getCartItem(id: String): List<CartItemEntity>
+    @Query("DELETE FROM cart_product WHERE product_code = :productCode")
+    suspend fun removeCartProduct(productCode: String)
 
-    suspend fun addProductUnitToCart(productCode: String) {
-        val item = getCartItem(productCode).firstOrNull()
-        if (item != null) {
-            val currentProductQuantity = item.quantity
+    suspend fun addProductToCart(productCode: String) {
+        val product = getCartProduct(productCode).firstOrNull()
+        if (product != null) {
+            val currentProductQuantity = product.quantity
             val newProductQuantity = currentProductQuantity + 1
-            upsertProduct(item.copy(quantity = newProductQuantity))
+            upsertProduct(product.copy(quantity = newProductQuantity))
         } else {
-            upsertProduct(CartItemEntity(productCode, 1))
+            upsertProduct(CartProductEntity(productCode, 1))
         }
     }
-
-    @Query("DELETE FROM cart_item WHERE product_code = :productCode")
-    suspend fun removeCartProduct(productCode: String)
 
 }
