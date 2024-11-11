@@ -12,6 +12,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             apply("store.android.library.compose")
             apply("store.android.library.flavors")
             apply("store.hilt")
+            apply("store.android.testing")
             apply("org.jetbrains.kotlin.plugin.serialization")
         }
 
@@ -19,7 +20,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             // Modules
             add("implementation", project(":core:domain"))
             add("implementation", project(":core:ui"))
-            add("implementation", project(":core:testing"))
 
             // Dependencies
             add("implementation", libs.library("kotlinx.serialization.json"))
@@ -30,15 +30,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             add("implementation", libs.library("compose.ui.tooling.preview"))
             add("debugImplementation", libs.library("compose.ui.tooling"))
             add("debugImplementation", libs.library("compose.ui.test.manifest"))
-
-            // Testing dependencies
-            add("testImplementation", libs.library("junit"))
-            add("testImplementation", libs.library("turbine"))
-            add("testImplementation", libs.library("assertk"))
-            add("testImplementation", libs.library("kotlinx.coroutines.test"))
-            add("androidTestImplementation", libs.library("kotlinx.coroutines.test"))
-            add("androidTestImplementation", libs.library("hilt.android.testing"))
-            add("androidTestImplementation", libs.library("compose.ui.test.junit4"))
         }
     }
 

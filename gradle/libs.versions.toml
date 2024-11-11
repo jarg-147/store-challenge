@@ -61,6 +61,7 @@ junit = "4.13.2"
 turbine = "1.2.0"
 assertk = "0.28.1"
 runner = "1.6.2"
+test-core = "1.6.1"
 
 [libraries]
 
@@ -127,6 +128,7 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "test-core" }
 
 # Gradle
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -172,6 +174,7 @@ store-android-application-compose = { id = "store.android.application.compose", 
 store-android-application-firebase = { id = "store.android.application.firebase", version = "unspecified" }
 store-android-application-flavors = { id = "store.android.application.flavors", version = "unspecified" }
 store-android-feature = { id = "store.android.feature", version = "unspecified" }
+store-android-testing = { id = "store.android.testing", version = "unspecified" }
 
 store-android-library = { id = "store.android.library", version = "unspecified" }
 store-android-library-compose = { id = "store.android.library.compose", version = "unspecified" }
