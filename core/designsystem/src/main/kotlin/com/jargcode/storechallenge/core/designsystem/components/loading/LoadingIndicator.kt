@@ -22,13 +22,13 @@ import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 fun LoadingIndicator(
     modifier: Modifier = Modifier,
 ) {
-    val testTag = stringResource(R.string.loading_indicator_content_description)
+    val loadingContentDescription = stringResource(R.string.loading_indicator_content_description)
     Box(
         modifier = modifier
             .background(Color.Black.copy(0.5f))
             .clickable(onClick = {})
             .semantics {
-                contentDescription = testTag
+                contentDescription = loadingContentDescription
             },
         contentAlignment = Alignment.Center
     ) {
