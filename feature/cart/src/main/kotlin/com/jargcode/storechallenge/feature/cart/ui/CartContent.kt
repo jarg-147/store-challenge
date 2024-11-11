@@ -58,15 +58,15 @@ fun CartContent(
 
             items(
                 items = cartProducts,
-                key = { item -> item.code }
-            ) { item ->
+                key = { product -> product.code }
+            ) { product ->
                 CartProductCart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .animateItem(),
-                    product = item,
+                    product = product,
                     onDeleteProductClick = {
-                        onUiEvent(CartUiEvent.OnDeleteProductFromCartClick(productCode = item.code))
+                        onUiEvent(CartUiEvent.OnDeleteProductFromCartClick(productCode = product.code))
                     }
                 )
             }

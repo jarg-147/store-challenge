@@ -96,7 +96,6 @@ class CartViewModelTest {
             // THEN
             val errorEmission = awaitItem()
             assertThat(errorEmission).isEqualTo(CartUiState.Error)
-
         }
     }
 
@@ -160,7 +159,7 @@ class CartViewModelTest {
             assertThat(successEmission.cartProducts.first().code).isEqualTo(cartProduct.code)
             assertThat(successEmission.totalPriceWithoutDiscounts).isEqualTo(cartProduct.price.toFormattedPrice())
 
-            cartRepository.getUserCartItems().test {
+            cartRepository.getCartProducts().test {
                 // WHEN
                 viewModel.onDeleteProductFromCartClick(cartProduct.code)
 
