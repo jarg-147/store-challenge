@@ -37,12 +37,11 @@ class GetProductsListUseCaseTest {
             val fakeDiscounts = discounts()
 
             discountsRepository.setDiscounts(fakeDiscounts)
-            productsRepository.setProducts(fakeProducts)
-
-            // THEN
             awaitItem() // Ignore first empty emission
+            productsRepository.setProducts(fakeProducts)
             awaitItem() // Ignore second empty emission
 
+            // THEN
             val products = awaitItem()
             val productsWithDiscounts = products.filter { it.discount != null }
 
@@ -78,9 +77,8 @@ class GetProductsListUseCaseTest {
             val fakeDiscount = listOf(FreeItem(productCode = "1", minQuantity = 2))
 
             discountsRepository.setDiscounts(fakeDiscount)
-            productsRepository.setProducts(fakeProducts)
-
             awaitItem() // Ignore first empty emission
+            productsRepository.setProducts(fakeProducts)
             awaitItem() // Ignore second empty emission
 
             // THEN
