@@ -90,6 +90,11 @@ gradlePlugin {
             implementationClass = "AndroidFeatureConventionPlugin"
         }
 
+        register("androidTesting") {
+            id = "store.android.testing"
+            implementationClass = "AndroidTestingConventionPlugin"
+        }
+
         // endregion Android plugins
 
         // region JVM plugins
