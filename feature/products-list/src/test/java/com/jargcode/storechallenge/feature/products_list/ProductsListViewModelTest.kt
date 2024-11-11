@@ -131,7 +131,7 @@ class ProductsListViewModelTest {
             val mappedFakeProducts = productsList.map { it.toProductUi() }
             assertThat(successEmission).isEqualTo(ProductsListUiState.Success(mappedFakeProducts))
 
-            cartRepository.getUserCartItems().test {
+            cartRepository.getCartProducts().test {
                 // WHEN
                 val selectedProduct = mappedFakeProducts.first()
                 viewModel.onAddProductToCartClick(selectedProduct.code)
@@ -161,7 +161,7 @@ class ProductsListViewModelTest {
             val mappedFakeProducts = productsList.map { it.toProductUi() }
             assertThat(successEmission).isEqualTo(ProductsListUiState.Success(mappedFakeProducts))
 
-            cartRepository.getUserCartItems().test {
+            cartRepository.getCartProducts().test {
                 // WHEN
                 cartRepository.addProductReturnsError = true
                 val selectedProduct = mappedFakeProducts.first()

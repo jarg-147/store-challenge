@@ -112,7 +112,6 @@ class ProductsListScreenTest {
         composeTestRule
             .onNodeWithText(emptyText, useUnmergedTree = true)
             .assertIsDisplayed()
-
     }
 
 }
