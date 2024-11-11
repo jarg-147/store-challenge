@@ -16,21 +16,21 @@ class GetCheckoutSummaryUseCase @Inject constructor(
 
     operator fun invoke(): Flow<CheckoutSummary> = getUserCartUseCase()
         .map { userCart ->
-            val cartItems = userCart.items
+            val cartProducts = userCart.cartProducts
             val subTotal = userCart.totalPriceWithoutDiscounts
-            val appliedDiscounts = calculateCartItemsDiscounts(cartItems = cartItems)
-            val total = subTotal - appliedDiscounts.sumOf { discount -> discount.totalDiscount }
+            val appliedDiscounts = calculateCartProductsDiscounts(cartProducts = cartProducts)
+            val total = subTotal - appliedDiscounts.sumOf { discount -> discount.totalDiscounted }
 
             CheckoutSummary(
-                checkoutItems = cartItems,
+                checkoutProducts = cartProducts,
                 subtotal = subTotal,
                 appliedDiscounts = appliedDiscounts,
                 total = total,
             )
         }
 
-    private fun calculateCartItemsDiscounts(cartItems: List<CartProduct>) = buildList {
-        cartItems.forEach { cartProduct ->
+    private fun calculateCartProductsDiscounts(cartProducts: List<CartProduct>) = buildList {
+        cartProducts.forEach { cartProduct ->
             cartProduct.product.discount?.let { productDiscount ->
                 val minQuantity = productDiscount.minQuantity
                 when (productDiscount) {
@@ -38,17 +38,17 @@ class GetCheckoutSummaryUseCase @Inject constructor(
                         if (cartProduct.quantity >= minQuantity) {
                             // Given a regular price of 20 and discounted price of 19,
                             // the discount per item is 1
-                            val discountPerItem = cartProduct.product.price - productDiscount.fixedPrice
+                            val discountPerProduct = cartProduct.product.price - productDiscount.fixedPrice
                             // Multiply by quantity to get the total money to discount
-                            val totalToDiscount = discountPerItem * cartProduct.quantity
+                            val totalToDiscount = discountPerProduct * cartProduct.quantity
 
-                            val timesApplied = cartProduct.quantity // Once per item
+                            val timesApplied = cartProduct.quantity // Once per product
 
                             add(
                                 AppliedDiscount(
                                     product = cartProduct.product,
                                     discount = productDiscount,
-                                    totalDiscount = totalToDiscount,
+                                    totalDiscounted = totalToDiscount,
                                     timesApplied = timesApplied
                                 )
                             )
@@ -59,12 +59,11 @@ class GetCheckoutSummaryUseCase @Inject constructor(
                         // Reading the README of the challenge, I understand that if a user buys,
                         // for example, 4 products with a 2x1 discount, said user should receive 2 of them for free.
                         // Following code behaves based on this concept.
-
-                        var discountableItemsQuantity = cartProduct.quantity
+                        var discountableProductsQuantity = cartProduct.quantity
                         var timesApplied = 0
 
-                        while (discountableItemsQuantity >= minQuantity) {
-                            discountableItemsQuantity -= minQuantity
+                        while (discountableProductsQuantity >= minQuantity) {
+                            discountableProductsQuantity -= minQuantity
                             timesApplied++
                         }
 
@@ -74,7 +73,7 @@ class GetCheckoutSummaryUseCase @Inject constructor(
                                 AppliedDiscount(
                                     product = cartProduct.product,
                                     discount = productDiscount,
-                                    totalDiscount = totalToDiscount,
+                                    totalDiscounted = totalToDiscount,
                                     timesApplied = timesApplied
                                 )
                             )

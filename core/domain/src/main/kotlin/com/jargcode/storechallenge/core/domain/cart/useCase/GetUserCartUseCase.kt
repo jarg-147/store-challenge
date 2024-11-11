@@ -15,28 +15,25 @@ class GetUserCartUseCase @Inject constructor(
 
     operator fun invoke(): Flow<Cart> = combine(
         getProductsListUseCase(),
-        cartRepository.getUserCartItems(),
-    ) { products, cartItems ->
+        cartRepository.getCartProducts(),
+    ) { products, cartProducts ->
 
-        val items = cartItems
-            .mapNotNull { items ->
-                // Filter unknown saved products
-                val matchingProduct = products.find { product ->
-                    product.code.equals(items.productCode, ignoreCase = true)
-                }
-
-                matchingProduct?.let { product ->
-                    CartProduct(
-                        product = product,
-                        quantity = items.quantity,
-                    )
-                }
+        val items = cartProducts.mapNotNull { items ->
+            // Filter unknown saved products
+            products.find { product ->
+                product.code.equals(items.productCode, ignoreCase = true)
+            }?.let { product ->
+                CartProduct(
+                    product = product,
+                    quantity = items.quantity,
+                )
             }
+        }
 
         val total = items.sumOf { cartItem -> cartItem.total }
 
         Cart(
-            items = items,
+            cartProducts = items,
             totalPriceWithoutDiscounts = total,
         )
     }
