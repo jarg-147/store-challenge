@@ -15,12 +15,14 @@ data class DiscountDTO(
 
 fun DiscountDTO.toDiscount(): Discount? = when {
     type.equals("FIXED_PRICE", ignoreCase = true) -> {
-        fixedPrice?.let { price ->
+        if (fixedPrice != null && fixedPrice > 0) {
             FixedPrice(
                 productCode = productId,
                 minQuantity = minQuantity,
-                fixedPrice = price
+                fixedPrice = fixedPrice
             )
+        } else {
+            null
         }
     }
 
