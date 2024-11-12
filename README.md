@@ -30,6 +30,9 @@ Code:
 - Written in Kotlin
 
 ## Setup
+
+Android Studio version used: `Android Studio Ladybug | 2024.2.1 Patch 2`
+
 To run this project:
 
 1. Clone the repository.
