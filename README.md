@@ -160,15 +160,15 @@ Anyway, I always like to wrap the Coil `AsyncImage` composable, so if I start us
 
 - `Junit`: It is simple and straightforward, easy to configure each test.
   
-- [`Assertk`](https://github.com/willowtreeapps/assertk): It is a library that I am using since recently, it comes loaded with many assertions that facilitate unit testing.
+- [`Assertk`](https://github.com/willowtreeapps/assertk): I recently started using this library, which comes with many built-in assertions to simplify unit testing.
   
 - [`Turbine`](https://github.com/cashapp/turbine): I think it is a totally necessary library if you use flows in your project. With turbine testing flows is very easy.
 
 ## Additional comments
 
-The following are features and improvements I would have liked to include in this project. Some are areas I'm currently exploring.
+Here are some features and improvements I would have liked to include in this project. Some of these are areas I'm currently exploring.
 
-Anyway, it's a matter of time that this list will have less and less things, because I love to learn new things and apply them to my projects :)!
+Over time, this list will gradually shrink, as I love learning new things and applying them to my projects!
 
 - `JaCoCo`: I would have liked to incorporate JaCoCo to measure code coverage for UI tests.
   
