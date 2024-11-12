@@ -14,9 +14,11 @@ class DiscountsRepositoryImpl @Inject constructor(
 
     override fun getDiscounts(): Flow<List<Discount>> = flow {
         val remoteDiscounts = discountsRemoteDataSource.getRemoteDiscounts()
-        val mappedDiscounts = remoteDiscounts.mapNotNull { discountDTO ->
-            discountDTO.toDiscount()
-        }
+        val mappedDiscounts = remoteDiscounts
+            .filter { discountDTO -> discountDTO.minQuantity > 0 }
+            .mapNotNull { discountDTO ->
+                discountDTO.toDiscount()
+            }
         emit(mappedDiscounts)
     }
 
