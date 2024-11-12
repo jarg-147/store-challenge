@@ -68,11 +68,9 @@ Based on the UX requirements, I have decided to choose to create three screens:
 
 This project has been developed following CLEAN architecture and SOLID principles to ensure high maintainability, scalability, and testability.
 
-- `Presentation`: Contains UI components (Screens, ViewModels, Compose components, etc.) and handles the display of data and navigation.
-  
-- `Domain`: Contains business logic, encapsulated in use cases to keep it independent of data sources or UI.
-  
-- `Data`: Responsible for data management, including repositories, network calls, and local database access.
+The UI of my app has been built with `Compose`, using the `MVI pattern`. 
+
+I really like Compose, I think it reduces development time a lot, especially when presenting lists, and it allows to reuse views in a super easy way.
 
 For a more detailed explanation of how my project's presentation layer works, see [presentation layer doc](docs/presentation_layer.md)
 
@@ -131,33 +129,37 @@ Libraries that I have used and why:
 
 #### Dependency injection
 
-- Dagger Hilt: Is the library I always use for DI in native Android applications because it's easy and very intuitive. I'm starting to try Koin in some KMP projects, but for now I'm sticking with Hilt.
+- `Dagger Hilt`: Is the library I always use for DI in native Android applications because it's easy and very intuitive. I'm starting to try Koin in some KMP projects, but for now I'm sticking with Hilt.
 
 #### Caching / Database
 
-- Room: Easy to use, compatible with flows and corrutines, which makes it quite easy to do things like automatically display the badge when a product is added to the cart.
+- `Room`: Easy to use, compatible with flows and corrutines, which makes it quite easy to do things like automatically display the badge when a product is added to the cart.
 
 #### Reactive programming
 
-- Flows: Native, coroutine based, easy to use, with a lot of operators included to perform different operations.
+- `Flows`: Native, coroutine based, easy to use, with a lot of operators included to perform different operations.
 
 #### Network
 
-- Retrofit: One of the most used libraries for network calls, I have been using this library for a long time and I am quite proficient with it. In spite of this I am starting to test Ktor in some projects.
+- `Retrofit`: One of the most used libraries for network calls, I have been using this library for a long time and I am quite proficient with it. In spite of this I am starting to test Ktor in some projects.
 
 #### Images
 
-- Coil: It’s lightweight, uses coroutines for asynchronous loading, and integrates smoothly with Jetpack Compose.
+- `Coil`: It’s lightweight, uses coroutines for asynchronous loading, and integrates smoothly with Jetpack Compose.
+Anyway, I always like to wrap the Coil `AsyncImage` composable, so if I start using other library in the future, I only have to modify one composable
+(See   [Image](core/designsystem/src/main/kotlin/com/jargcode/storechallenge/core/designsystem/components/image/Image.kt)).
 
 #### Serialization
 
-- Kotlinx serialization: Straightforward way to serialize and deserialize data, compatibility with Retrofit. Needed for Compose native navigation routes.
+- `Kotlinx serialization`: Straightforward way to serialize and deserialize data, compatibility with Retrofit. Needed for Compose native navigation routes.
 
 #### Testing
 
-- Junit: It is simple and straightforward, easy to configure each test.
-- [Assertk](https://github.com/willowtreeapps/assertk): It is a library that I am using since recently, it comes loaded with many assertions that facilitate unit testing.
-- [Turbine](https://github.com/cashapp/turbine): I think it is a totally necessary library if you use flows in your project. With turbine testing flows is very easy.
+- `Junit`: It is simple and straightforward, easy to configure each test.
+  
+- [`Assertk`](https://github.com/willowtreeapps/assertk): It is a library that I am using since recently, it comes loaded with many assertions that facilitate unit testing.
+  
+- [`Turbine`](https://github.com/cashapp/turbine): I think it is a totally necessary library if you use flows in your project. With turbine testing flows is very easy.
 
 ## Additional comments
 
@@ -165,7 +167,10 @@ The following are features and improvements I would have liked to include in thi
 
 Anyway, it's a matter of time that this list will have less and less things, because I love to learn new things and apply them to my projects :)!
 
-- JaCoCo: I would have liked to incorporate JaCoCo to measure code coverage for UI tests.
-- CI/CD pipelines: It's something I don't have too much knowledge at the moment, but it's a matter of time :)!
-- Code quality with Linting: Adding linting would help enforce consistent code quality standards.
-- Static code analysis with [Detekt](https://github.com/detekt/detekt): Using Detekt would improve static code analysis by ensuring each module respects dependencies
+- `JaCoCo`: I would have liked to incorporate JaCoCo to measure code coverage for UI tests.
+  
+- `CI/CD pipelines`: It's something I don't have too much knowledge at the moment, but it's a matter of time :)!
+  
+- `Code quality with Linting`: Adding linting would help enforce consistent code quality standards.
+  
+- `Static code analysis with` [`Detekt`](https://github.com/detekt/detekt): Using Detekt would improve static code analysis by ensuring each module respects dependencies
