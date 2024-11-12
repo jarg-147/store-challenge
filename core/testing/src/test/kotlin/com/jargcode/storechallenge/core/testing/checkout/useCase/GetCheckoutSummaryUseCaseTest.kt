@@ -1,4 +1,4 @@
-package com.jargcode.storechallenge.core.testing.products.checkout.useCase
+package com.jargcode.storechallenge.core.testing.checkout.useCase
 
 import app.cash.turbine.test
 import assertk.assertThat
