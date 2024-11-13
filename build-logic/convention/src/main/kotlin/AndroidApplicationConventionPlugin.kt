@@ -33,10 +33,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             configureKotlinAndroid(
                 commonExtension = this
             )
-
-            configureBuildTypes(
-                commonExtension = this
-            )
         }
     }
 

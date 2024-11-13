@@ -1,5 +1,4 @@
 import com.android.build.gradle.LibraryExtension
-import com.jargcode.storechallenge.convention.configureBuildTypes
 import com.jargcode.storechallenge.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -23,10 +22,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
 
             configureKotlinAndroid(
-                commonExtension = this
-            )
-            
-            configureBuildTypes(
                 commonExtension = this
             )
         }

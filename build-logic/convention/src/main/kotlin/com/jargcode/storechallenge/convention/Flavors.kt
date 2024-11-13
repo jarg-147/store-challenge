@@ -22,6 +22,10 @@ enum class Flavor(
 internal fun configureFlavors(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) = with(commonExtension) {
+    buildFeatures {
+        buildConfig = true
+    }
+
     flavorDimensions += env.name
     productFlavors {
         Flavor
