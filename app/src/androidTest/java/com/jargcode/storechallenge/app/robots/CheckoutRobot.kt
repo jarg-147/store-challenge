@@ -4,10 +4,18 @@ import androidx.compose.ui.test.*
 import com.jargcode.storechallenge.app.StoreComposeRule
 import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.checkout.R
+import com.jargcode.storechallenge.core.designsystem.R as DSRes
 
 class CheckoutRobot(
     private val composeTestRule: StoreComposeRule,
 ) {
+
+    @OptIn(ExperimentalTestApi::class)
+    fun waitUntilLoadingFinished() = apply {
+        val loadingContentDesc = composeTestRule.activity.getString(DSRes.string.loading_indicator_content_description)
+        composeTestRule.waitUntilDoesNotExist(hasContentDescriptionExactly(loadingContentDesc))
+    }
+
     fun assertProductIsInSummary(
         productName: String,
         productDescription: String,
@@ -61,6 +69,5 @@ class CheckoutRobot(
             .onNodeWithText(total.toFormattedPrice(), useUnmergedTree = true)
             .assertIsDisplayed()
     }
-
 
 }

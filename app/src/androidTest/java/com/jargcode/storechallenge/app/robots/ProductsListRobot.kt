@@ -2,12 +2,18 @@ package com.jargcode.storechallenge.app.robots
 
 import androidx.compose.ui.test.*
 import com.jargcode.storechallenge.app.StoreComposeRule
+import com.jargcode.storechallenge.core.designsystem.R as DSRes
 import com.jargcode.storechallenge.feature.products_list.R
 
 @OptIn(ExperimentalTestApi::class)
 class ProductsListRobot(
     private val composeTestRule: StoreComposeRule,
 ) {
+
+    fun waitUntilLoadingFinished() = apply {
+        val loadingContentDesc = composeTestRule.activity.getString(DSRes.string.loading_indicator_content_description)
+        composeTestRule.waitUntilDoesNotExist(hasContentDescriptionExactly(loadingContentDesc), timeoutMillis = 25000L) // GitHub may take time to load
+    }
 
     fun addVoucherToCart(): ProductsListRobot = apply {
         composeTestRule

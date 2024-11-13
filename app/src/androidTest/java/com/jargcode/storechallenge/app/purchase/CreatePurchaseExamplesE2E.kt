@@ -1,7 +1,5 @@
 package com.jargcode.storechallenge.app.purchase
 
-import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.compose.ui.test.hasContentDescriptionExactly
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.jargcode.storechallenge.app.MainActivity
 import com.jargcode.storechallenge.app.robots.*
@@ -10,7 +8,6 @@ import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
 import org.junit.Test
-import com.jargcode.storechallenge.core.designsystem.R as DesignRes
 
 @HiltAndroidTest
 class CreatePurchaseExamplesE2E : StoreAndroidTest() {
@@ -23,13 +20,10 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
     private val checkoutListRobot = CheckoutRobot(composeTestRule)
     private val bottomBarRobot = BottomBarRobot(composeTestRule)
 
-    @OptIn(ExperimentalTestApi::class)
     @Test
     fun whenPurchasingExample1_thenAssertExample1CheckoutSummary() {
-        val loadingContentDesc = composeTestRule.activity.getString(DesignRes.string.loading_indicator_content_description)
-        composeTestRule.waitUntilDoesNotExist(hasContentDescriptionExactly(loadingContentDesc), timeoutMillis = 25000L) // GitHub may take time to load
-
         productsListRobot
+            .waitUntilLoadingFinished()
             .addVoucherToCart()
             .dismissSnackbar()
             .addTShirtToCart()
@@ -42,6 +36,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCart()
 
         cartRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInCart(
                 productName = "Cabify Voucher",
                 productQuantity = "x 1"
@@ -58,6 +53,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCheckout()
 
         checkoutListRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInSummary(
                 productName = "Cabify Voucher",
                 productDescription = "x 1 - ${5.00.toFormattedPrice()} / u",
@@ -78,13 +74,10 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .assertTotal(32.50)
     }
 
-    @OptIn(ExperimentalTestApi::class)
     @Test
     fun whenPurchasingExample2_thenAssertExample2CheckoutSummary() {
-        val loadingContentDesc = composeTestRule.activity.getString(DesignRes.string.loading_indicator_content_description)
-        composeTestRule.waitUntilDoesNotExist(hasContentDescriptionExactly(loadingContentDesc), timeoutMillis = 25000L)
-
         productsListRobot
+            .waitUntilLoadingFinished()
             .addVoucherToCart()
             .dismissSnackbar()
             .addTShirtToCart()
@@ -97,6 +90,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCart()
 
         cartRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInCart(
                 productName = "Cabify Voucher",
                 productQuantity = "x 2"
@@ -112,6 +106,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCheckout()
 
         checkoutListRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInSummary(
                 productName = "Cabify Voucher",
                 productDescription = "x 2 - ${5.00.toFormattedPrice()} / u",
@@ -127,13 +122,10 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .assertTotal(25.00)
     }
 
-    @OptIn(ExperimentalTestApi::class)
     @Test
     fun whenPurchasingExample3_thenAssertExample3CheckoutSummary() {
-        val loadingContentDesc = composeTestRule.activity.getString(DesignRes.string.loading_indicator_content_description)
-        composeTestRule.waitUntilDoesNotExist(hasContentDescriptionExactly(loadingContentDesc), timeoutMillis = 25000L)
-
         productsListRobot
+            .waitUntilLoadingFinished()
             .addTShirtToCart()
             .dismissSnackbar()
             .addTShirtToCart()
@@ -150,6 +142,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCart()
 
         cartRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInCart(
                 productName = "Cabify Voucher",
                 productQuantity = "x 1"
@@ -165,6 +158,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCheckout()
 
         checkoutListRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInSummary(
                 productName = "Cabify Voucher",
                 productDescription = "x 1 - ${5.00.toFormattedPrice()} / u",
@@ -180,13 +174,10 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .assertTotal(81.00)
     }
 
-    @OptIn(ExperimentalTestApi::class)
     @Test
     fun whenPurchasingExample4_thenAssertExample4CheckoutSummary() {
-        val loadingContentDesc = composeTestRule.activity.getString(DesignRes.string.loading_indicator_content_description)
-        composeTestRule.waitUntilDoesNotExist(hasContentDescriptionExactly(loadingContentDesc), timeoutMillis = 25000L)
-
         productsListRobot
+            .waitUntilLoadingFinished()
             .addVoucherToCart()
             .dismissSnackbar()
             .addTShirtToCart()
@@ -207,6 +198,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCart()
 
         cartRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInCart(
                 productName = "Cabify Voucher",
                 productQuantity = "x 3"
@@ -226,6 +218,7 @@ class CreatePurchaseExamplesE2E : StoreAndroidTest() {
             .navigateToCheckout()
 
         checkoutListRobot
+            .waitUntilLoadingFinished()
             .assertProductIsInSummary(
                 productName = "Cabify Voucher",
                 productDescription = "x 3 - ${5.00.toFormattedPrice()} / u",

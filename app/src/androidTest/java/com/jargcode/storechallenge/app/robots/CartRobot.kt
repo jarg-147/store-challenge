@@ -4,10 +4,17 @@ import androidx.compose.ui.test.*
 import com.jargcode.storechallenge.app.StoreComposeRule
 import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.cart.R
+import com.jargcode.storechallenge.core.designsystem.R as DSRes
 
 class CartRobot(
     private val composeTestRule: StoreComposeRule,
 ) {
+
+    @OptIn(ExperimentalTestApi::class)
+    fun waitUntilLoadingFinished() = apply {
+        val loadingContentDesc = composeTestRule.activity.getString(DSRes.string.loading_indicator_content_description)
+        composeTestRule.waitUntilDoesNotExist(hasContentDescriptionExactly(loadingContentDesc))
+    }
 
     fun assertProductIsInCart(
         productName: String,
