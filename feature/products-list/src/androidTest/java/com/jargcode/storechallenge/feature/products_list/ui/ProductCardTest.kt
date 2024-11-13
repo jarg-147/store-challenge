@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 import com.jargcode.storechallenge.core.testing.discounts.fixedPriceDiscount
 import com.jargcode.storechallenge.core.testing.discounts.freeDiscount
+import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.products_list.data.productUi
 import org.junit.Rule
 import org.junit.Test
@@ -73,7 +74,7 @@ class ProductCardTest {
             .assertIsDisplayed()
 
         composeRule
-            .onNodeWithText("When buying 2 or more, 4.00€ each", useUnmergedTree = true)
+            .onNodeWithText("When buying 2 or more, ${4.00.toFormattedPrice()} each", useUnmergedTree = true)
             .assertIsDisplayed()
     }
 

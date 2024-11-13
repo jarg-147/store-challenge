@@ -13,6 +13,7 @@ import com.jargcode.storechallenge.core.testing.discounts.FakeDiscountsRepositor
 import com.jargcode.storechallenge.core.testing.discounts.discounts
 import com.jargcode.storechallenge.core.testing.products.FakeProductsRepository
 import com.jargcode.storechallenge.core.testing.products.products
+import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.checkout.model.CheckoutUiState
 import kotlinx.coroutines.test.runTest
 import org.junit.*
@@ -81,9 +82,9 @@ class CheckoutViewModelTest {
             successEmission as CheckoutUiState.Success
 
             assertThat(successEmission.products.size).isEqualTo(cartProducts.size)
-            assertThat(successEmission.subtotal).isEqualTo("5.00€")
+            assertThat(successEmission.subtotal).isEqualTo(5.00.toFormattedPrice())
             assertThat(successEmission.appliedDiscounts).isEmpty()
-            assertThat(successEmission.total).isEqualTo("5.00€")
+            assertThat(successEmission.total).isEqualTo(5.00.toFormattedPrice())
         }
     }
 

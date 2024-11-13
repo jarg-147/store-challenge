@@ -164,7 +164,7 @@ class CartScreenTest {
             CartScreen(
                 uiState = CartUiState.Success(
                     cartProducts = emptyList(),
-                    totalPriceWithoutDiscounts = "0.00€"
+                    totalPriceWithoutDiscounts = 0.00.toFormattedPrice()
                 ),
                 onUiEvent = {},
                 snackbarState = SnackbarHostState()
