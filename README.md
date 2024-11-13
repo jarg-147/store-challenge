@@ -144,7 +144,7 @@ Libraries that I have used and why:
 
 #### Network
 
-- `Retrofit`: One of the most used libraries for network calls, I have been using this library for a long time and I am quite proficient with it. In spite of this I am starting to test Ktor in some projects.
+- `Retrofit`: One of the most used libraries for network calls, I have been using this library for a long time and I am quite proficient with it. In the other hand, I am starting to test Ktor in some projects.
 
 #### Images
 
