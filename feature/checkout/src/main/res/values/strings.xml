@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="checkout_summary_toolbar">Checkout</string>
+    <string name="checkout_summary_header">Your checkout summary:</string>
+    <string name="checkout_summary_products_section">Products</string>
+    <string name="checkout_summary_subtotal_section">Subtotal</string>">
+    <string name="checkout_summary_discount_section">Discounts</string>
+    <string name="checkout_summary_total_section">Total</string>
+    <string name="checkout_summary_pay_button">Pay</string>
+
+    <string name="checkout_summary_error_title">An error occurred</string>
+    <string name="checkout_summary_error_text">Please try again later.</string>
+    <string name="checkout_summary_error_button">Try again</string>
+
+    <string name="reduced_price_discount_info">%1$s reduced price</string>
+    <string name="buy_and_get_free_discount_info">Buy %1$d %2$s, get 1 free</string>
+
+</resources>
