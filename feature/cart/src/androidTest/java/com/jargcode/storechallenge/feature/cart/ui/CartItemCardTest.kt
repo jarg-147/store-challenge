@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import com.jargcode.storechallenge.core.designsystem.theme.StoreTheme
 import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FixedPrice
 import com.jargcode.storechallenge.core.domain.discounts.model.Discount.FreeItem
+import com.jargcode.storechallenge.core.ui.utils.extensions.toFormattedPrice
 import com.jargcode.storechallenge.feature.cart.data.cartProductUi
 import org.junit.Rule
 import org.junit.Test
@@ -116,7 +117,7 @@ class CartItemCardTest {
             .assertIsDisplayed()
 
         composeRule
-            .onNode(hasTextExactly("Buy 1 more and get each one at 4.00€!"), useUnmergedTree = true)
+            .onNode(hasTextExactly("Buy 1 more and get each one at ${4.00.toFormattedPrice()}!"), useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
